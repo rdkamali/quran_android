@@ -104,7 +104,7 @@
   </plurals>
 
   <!-- Search messages -->
-  <string name="found_in_sura">Gefunden in Sure %1$s, Vers %2$d</string>
+  <string name="found_in_sura">Gefunden in Sure %1$s: %2$d (Seite %3$d)</string>
   <string name="no_results">Es wurden keine Resultate für \"%s\" gefunden.</string>
   <string name="no_arabic_search_available">Sie haben das arabische Such-Paket noch nicht
     heruntergeladen. Bitte laden Sie dieses herunter und versuchen Sie es danach erneut.
@@ -139,6 +139,8 @@
   <string name="prefs_night_mode_text_brightness_title">Helligkeit des Textes</string>
   <string name="prefs_night_mode_text_brightness_summary">Die Helligkeit des Textes im Nachtmodus.
   </string>
+  <string name="prefs_night_mode_background_brightness_title">Helligkeit des Hintergrunds</string>
+  <string name="prefs_night_mode_background_brightness_summary">Helligkeit der Seite im Nachtmodus.</string>
   <string name="prefs_overlay_page_info_title">Seiteninfo anzeigen</string>
   <string name="prefs_overlay_page_info_summary">Blendet die Seitennummer, den Namen der Sure und
     die Juz\' Nummer während dem Lesen ein.
@@ -213,6 +215,7 @@
   <string name="quran_ayah">Vers %1$d</string>
   <string name="quran_sura_title">Sure %1$s</string>
   <string name="sura_ayah_notification_str">Sure %1$s, Vers %2$d</string>
+  <string name="sura_ayah_sharing_str">Sure %1$s: %2$d</string>
 
   <string name="index_loading">Lade&#8230;</string>
 
@@ -305,14 +308,6 @@
   </string-array>
 
   <!-- long press -->
-  <string name="bookmark_ayah">Lesezeichen für diesen Vers hinzufügen</string>
-  <string name="tag_ayah">Ein Schlagwort zum Vers hinzufügen</string>
-  <string name="share_ayah">Vers Link teilen</string>
-  <string name="share_ayah_text">Versinhalt teilen</string>
-  <string name="translation_ayah">Vers Übersetzung/Koranexegese</string>
-  <string name="play_from_here">Ab hier abspielen</string>
-  <string name="search_key">Drücken Sie die Suchtaste zum Nachschlagen eines Verses</string>
-  <string name="copy_ayah">Kopiere Vers</string>
   <string name="ayah_copied_popup">Vers kopiert</string>
 
   <!-- bookmarks & tags contextual action bar -->

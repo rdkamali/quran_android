@@ -107,7 +107,7 @@
   <string name="storage_permission_please_restart">Harap hidupkan ulang aplikasi ini agar penyimpanan data bisa dilakukan.</string>
 
   <!-- Search messages -->
-  <string name="found_in_sura">Ditemukan dalam Surat %1$s, Ayat %2$d</string>
+  <string name="found_in_sura">Ditemukan dalam Surat %1$s: %2$d (Halaman %3$d)</string>
   <string name="no_results">Tak ada hasil pencarian untuk \"%s\"</string>
   <string name="no_arabic_search_available">Anda belum mengunduh paket pencarian bahasa Arab. Harap unduh dulu dan ulangi pencarian anda.</string>
   <string name="get_arabic_search_db">Dapatkan Basis Data Pencarian Bahasa Arab</string>
@@ -131,6 +131,8 @@
   <string name="prefs_night_mode_summary">Menggunkan latar gelap dan tulisan terang</string>
   <string name="prefs_night_mode_text_brightness_title">Kecerahan teks</string>
   <string name="prefs_night_mode_text_brightness_summary">Kecerahan teks saat mode malam diaktifkan</string>
+  <string name="prefs_night_mode_background_brightness_title">Kecerahan latar belakang</string>
+  <string name="prefs_night_mode_background_brightness_summary">Kecerahan halaman saat mode malam aktif</string>
   <string name="prefs_overlay_page_info_title">Tampilkan informasi halaman</string>
   <string name="prefs_overlay_page_info_summary">Munculkan nomor halaman, nama surat, dan nomer juz saat membaca</string>
   <string name="prefs_display_marker_title">Tampilkan munculan penanda</string>
@@ -207,6 +209,7 @@
   <string name="quran_ayah_details">%1$s - Ayat %2$s, Juz\' %3$s</string>
   <string name="quran_sura_title">Surat %1$s</string>
   <string name="sura_ayah_notification_str">Surat %1$s, Ayat %2$d</string>
+  <string name="sura_ayah_sharing_str">Surat %1$s: %2$d</string>
 
   <string name="index_loading">Memuat&#8230;</string>
 
@@ -284,14 +287,6 @@
   <string name="starting_page_label">Awal Halaman</string>
 
   <!-- long press -->
-  <string name="bookmark_ayah">Tandai ayat ini</string>
-  <string name="tag_ayah">Label ayat ini</string>
-  <string name="share_ayah">Bagikan tautan ayat ini</string>
-  <string name="share_ayah_text">Bagikan teks ayat</string>
-  <string name="translation_ayah">Terjemahan/Tafsir ayat</string>
-  <string name="play_from_here">Putar mulai dari sini</string>
-  <string name="search_key">Tekan tombol pencarian untuk mencari ayat</string>
-  <string name="copy_ayah">Salin ayat</string>
   <string name="ayah_copied_popup">Ayat telah tersalin</string>
 
   <!-- bookmarks & tags contextual action bar -->

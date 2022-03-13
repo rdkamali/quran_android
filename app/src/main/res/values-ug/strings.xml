@@ -35,7 +35,7 @@
   <string name="quranSearchType">قۇرئان سۈرەلىرى</string>
 
   <!-- Search messages -->
-  <string name="found_in_sura">سۈرىدە بايقالدى %1$s, ئايەت %2$d</string>
+  <string name="found_in_sura">سۈرىدە بايقالدى %1$s, ئايەت %2$d (بەت %3$d)</string>
   <string name="no_results">"%s" نىڭ نەتىجىلىرى تېپىلمىدى</string>
   <string name="no_arabic_search_available">سىز ئەرەبچە ئىزدەش بوغچىسىنى چۈشۈرمىگەن. ئۇنى چۈشۈرۈپ ئاندىن قايتا ئىزدەڭ.</string>
   <string name="get_arabic_search_db">ئەرەبچە ئىزدەش ساندانىغا ئېرىش</string>
@@ -59,6 +59,8 @@
   <string name="prefs_night_mode_summary">قارا تەگلىك يورۇق خەت نۇسخىسى ئىشلىتىلىدۇ</string>
   <string name="prefs_night_mode_text_brightness_title">تېكىست يورۇقلۇقى</string>
   <string name="prefs_night_mode_text_brightness_summary">كېچە ھالىتى قوزغىتىلغان ۋاقىتتىكى تېكىستنىڭ يورۇقلۇقى</string>
+  <string name="prefs_night_mode_background_brightness_title">تەگلىك يورۇقلۇقى</string>
+  <string name="prefs_night_mode_background_brightness_summary">كەچلىك ھالەت ئاكتىپ بولغاندا بەتنىڭ يورۇقلۇقى</string>
   <string name="prefs_overlay_page_info_title">بەت ئۇچۇرىنى كۆرسەت</string>
   <string name="prefs_overlay_page_info_summary">قىرائەت قىلىۋاتقاندا بەت سانى، سۈرە ئىسمى ۋە پارە سانىنى كۆرسىتىدۇ</string>
   <string name="prefs_display_marker_title">بەلگە قاڭقىش كۆزنىكىنى كۆرسەت</string>
@@ -108,6 +110,7 @@
   <string name="quran_ayah">%1$d ئايەت</string>
   <string name="quran_sura_title">%1$s - سۈرە</string>
   <string name="sura_ayah_notification_str">%1$s -سۈرە، %2$d - ئايەت</string>
+  <string name="sura_ayah_sharing_str">سۈرە %1$: %2$d</string>
 
   <string name="index_loading">يۈكلەۋاتىدۇ…</string>
 
@@ -154,14 +157,6 @@
   </plurals>
 
   <!-- long press -->
-  <string name="bookmark_ayah">بۇ ئايەتنى خەتكۈچلە</string>
-  <string name="tag_ayah">بۇ ئايەتكە بەلگە قوش</string>
-  <string name="share_ayah">ئايەت ئۇلانمىسىنى ھەمبەھىرلە</string>
-  <string name="share_ayah_text">ئايەت تېكىستتىنى ھەمبەھىرلە</string>
-  <string name="translation_ayah">ئايەت تەرجىمە/تەپسىر</string>
-  <string name="play_from_here">بۇ جايدىن باشلاپ چال</string>
-  <string name="search_key">ئىزدە كۇنۇپكىسى بېسىلسا سۈرە ئىزدەيدۇ</string>
-  <string name="copy_ayah">ئايەت كۆچۈر</string>
   <string name="ayah_copied_popup">ئايەت كۆچۈرۈلدى</string>
 
   <!-- bookmarks & tags contextual action bar -->

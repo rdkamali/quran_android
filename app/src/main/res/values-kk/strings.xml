@@ -112,7 +112,7 @@
     </string>
 
   <!-- Search messages -->
-  <string name="found_in_sura">Сүреде табылды %1$s, %2$d-аят</string>
+  <string name="found_in_sura">Сүреде табылды %1$s, %2$d-аят (Бет %3$d)</string>
   <string name="no_results">\"%s\" бойынша нәтиже табылмады</string>
   <string name="no_arabic_search_available">Арабша іздеу деректері орнатылмаған.
         Алдымен оны жүктеңіз. Кейін қайта іздеп көріңіз.
@@ -138,6 +138,8 @@
   <string name="prefs_night_mode_summary">Қара фон мен ашық түсті шрифт қолданылады</string>
   <string name="prefs_night_mode_text_brightness_title">Мәтін ашықтығы</string>
   <string name="prefs_night_mode_text_brightness_summary">Түнгі режимдегі мәтін ашықтығы</string>
+  <string name="prefs_night_mode_background_brightness_title">Фондық жарықтық</string>
+  <string name="prefs_night_mode_background_brightness_summary">Түнгі режим белсенді болған кездегі беттің жарықтығы</string>
   <string name="prefs_overlay_page_info_title">Бет деректері</string>
   <string name="prefs_overlay_page_info_summary">Сүре аты, бет және пара ретін көрсету</string>
   <string name="prefs_display_marker_title">Бөлім деректері</string>
@@ -211,6 +213,7 @@
   <string name="quran_ayah_details">%1$s %2$s-аят, %3$s-пара</string>
   <string name="quran_sura_title">%1$s сүресі</string>
   <string name="sura_ayah_notification_str">%1$s сүресі, %2$d-аят</string>
+  <string name="sura_ayah_sharing_str">%1$s сүресі: %2$d</string>
 
   <string name="index_loading">Жүктеу…</string>
 
@@ -285,14 +288,6 @@
   </string-array>
 
   <!-- long press -->
-  <string name="bookmark_ayah">Аятқа бетбелгі қою</string>
-  <string name="tag_ayah">Аятты белгілеу</string>
-  <string name="share_ayah">Аятпен бөлісу</string>
-  <string name="share_ayah_text">Аят мәтінімен бөлісу</string>
-  <string name="translation_ayah">Аят аудармасы/тәпсірі</string>
-  <string name="play_from_here">Осы жерден бастап тыңдау</string>
-  <string name="search_key">Сүрені табу үшін іздеу батырмасын басыңыз</string>
-  <string name="copy_ayah">Аятты көшіру</string>
   <string name="ayah_copied_popup">Аят көшірілді</string>
 
   <!-- bookmarks & tags contextual action bar -->

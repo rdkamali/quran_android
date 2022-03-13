@@ -2,7 +2,8 @@ package com.quran.labs.androidquran.di.component.application
 
 import com.quran.analytics.provider.AnalyticsModule
 import com.quran.common.networking.NetworkModule
-import com.quran.data.page.provider.QuranPageModule
+import com.quran.data.di.AppScope
+import com.quran.data.page.provider.QuranDataModule
 import com.quran.labs.androidquran.QuranApplication
 import com.quran.labs.androidquran.QuranDataActivity
 import com.quran.labs.androidquran.QuranForwarderActivity
@@ -23,7 +24,6 @@ import com.quran.labs.androidquran.ui.AudioManagerActivity
 import com.quran.labs.androidquran.ui.SheikhAudioManagerActivity
 import com.quran.labs.androidquran.ui.TranslationManagerActivity
 import com.quran.labs.androidquran.ui.fragment.AddTagDialog
-import com.quran.labs.androidquran.ui.fragment.AyahPlaybackFragment
 import com.quran.labs.androidquran.ui.fragment.BookmarksFragment
 import com.quran.labs.androidquran.ui.fragment.JumpFragment
 import com.quran.labs.androidquran.ui.fragment.JuzListFragment
@@ -34,23 +34,25 @@ import com.quran.labs.androidquran.ui.fragment.TagBookmarkDialog
 import com.quran.labs.androidquran.widget.BookmarksWidget
 import com.quran.labs.androidquran.widget.BookmarksWidgetListProvider
 import com.quran.labs.androidquran.widget.ShowJumpFragmentActivity
-import dagger.Component
+import com.quran.mobile.di.QuranApplicationComponent
+import com.squareup.anvil.annotations.MergeComponent
 import javax.inject.Singleton
 
 @Singleton
-@Component(
+@MergeComponent(
+  AppScope::class,
   modules = [
     AnalyticsModule::class,
     ApplicationModule::class,
     DatabaseModule::class,
     NetworkModule::class,
     PageAggregationModule::class,
-    QuranPageModule::class,
+    QuranDataModule::class,
     WorkerModule::class,
     BookmarksWidgetUpdaterModule::class
   ]
 )
-interface ApplicationComponent {
+interface ApplicationComponent: QuranApplicationComponent {
   // subcomponents
   fun pagerActivityComponentBuilder(): PagerActivityComponent.Builder
   fun quranActivityComponentBuilder(): QuranActivityComponent.Builder
@@ -82,7 +84,6 @@ interface ApplicationComponent {
   fun inject(quranAdvancedSettingsFragment: QuranAdvancedSettingsFragment)
   fun inject(suraListFragment: SuraListFragment)
   fun inject(juzListFragment: JuzListFragment)
-  fun inject(ayahPlaybackFragment: AyahPlaybackFragment)
   fun inject(jumpFragment: JumpFragment)
 
   // dialogs

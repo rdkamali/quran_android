@@ -1,5 +1,6 @@
 package com.quran.labs.androidquran.presenter.bookmark;
 
+import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 
 import com.quran.data.model.bookmark.Bookmark;
@@ -45,14 +46,11 @@ public class TagBookmarkPresenter implements Presenter<TagBookmarkDialog> {
     // and we don't need to worry about disposing it.
     this.bookmarkModel.tagsObservable()
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(tag -> {
+        .subscribe(ignore -> {
           shouldRefreshTags = true;
           if (tags != null && dialog != null) {
-            // change this if we support updating tags from outside of QuranActivity
-            tags.add(tags.size() - 1, tag);
-            checkedTags.add(tag.getId());
-            dialog.setData(tags, checkedTags);
-            setMadeChanges();
+            saveChanges();
+            refresh();
           }
         });
   }
@@ -186,7 +184,7 @@ public class TagBookmarkPresenter implements Presenter<TagBookmarkDialog> {
   }
 
   @Override
-  public void bind(TagBookmarkDialog dialog) {
+  public void bind(@NonNull TagBookmarkDialog dialog) {
     this.dialog = dialog;
     if (tags != null) {
       // replay the last set of tags and checked tags that we had.

@@ -1,4 +1,4 @@
-name: Android Pull Request and Merge
+name: build
 on:
   push:
     branches:
@@ -38,6 +38,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
+      - name: Run SqlDelight migration tests
+        run: ./gradlew verifySqlDelightMigration
 
       - name: Run tests
         run: ./gradlew testMadaniDebug feature:audio:testDebug -PdisableCrashlytics -PdisableFirebase
@@ -81,3 +84,6 @@ jobs:
 
       - name: Build debug APK
         run: ./gradlew assembleMadaniDebug
+
+env:
+  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx8G -XX:MaxMetaspaceSize=512m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseParallelGC -Dfile.encoding=UTF-8"

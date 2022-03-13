@@ -14,12 +14,13 @@ import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.quran.data.model.SuraAyah
+import com.quran.data.model.highlight.HighlightType
 import com.quran.labs.androidquran.R
 import com.quran.labs.androidquran.common.QuranAyahInfo
-import com.quran.data.model.SuraAyah
 import com.quran.labs.androidquran.model.translation.ArabicDatabaseUtils
 import com.quran.labs.androidquran.ui.helpers.ExpandTafseerSpan
-import com.quran.labs.androidquran.ui.helpers.HighlightType
+import com.quran.labs.androidquran.ui.helpers.HighlightTypes
 import com.quran.labs.androidquran.ui.helpers.UthmaniSpan
 import com.quran.labs.androidquran.ui.util.TypefaceManager
 import com.quran.labs.androidquran.util.QuranSettings
@@ -49,7 +50,7 @@ internal class TranslationAdapter(
   private var highlightedStartPosition: Int = 0
   private var highlightType: HighlightType? = null
 
-  private val expandedTafaseerAyahs = mutableSetOf<Pair<Int, Int>>()
+  private val expandedTafseerAyahs = mutableSetOf<Pair<Int, Int>>()
   private val expandedHyperlinks = mutableSetOf<Pair<Int, Int>>()
 
   private val defaultClickListener = View.OnClickListener { this.handleClick(it) }
@@ -69,25 +70,37 @@ internal class TranslationAdapter(
 
       // find out where to position the popup based on the center of the box
       versePosition?.let {
-        val viewHolder =
-          recyclerView.findViewHolderForAdapterPosition(versePosition.index) as RowViewHolder?
-        viewHolder?.ayahNumber?.let { ayahNumberView ->
-          val x = (ayahNumberView.left + ayahNumberView.boxCenterX)
-          val y = (ayahNumberView.top + ayahNumberView.boxBottomY)
-          intArrayOf(x, y)
-        }
+        positionForViewHolderIndex(versePosition.index)
       }
     } else {
       null
     }
   }
 
+  fun getSelectedVersePopupPosition(sura: Int, ayah: Int): IntArray? {
+    val (startPosition, _) = adapterInfoForAyah(sura, ayah)
+    return if (startPosition > -1) {
+      positionForViewHolderIndex(startPosition)
+    } else {
+      null
+    }
+  }
+
+  private fun positionForViewHolderIndex(index: Int): IntArray? {
+    val viewHolder = recyclerView.findViewHolderForAdapterPosition(index) as RowViewHolder?
+    return viewHolder?.ayahNumber?.let { ayahNumberView ->
+      val x = (ayahNumberView.left + ayahNumberView.boxCenterX)
+      val y = (ayahNumberView.top + ayahNumberView.boxBottomY)
+      intArrayOf(x, y)
+    }
+  }
+
   fun setData(data: List<TranslationViewRow>) {
     this.data.clear()
-    expandedTafaseerAyahs.clear()
+    expandedTafseerAyahs.clear()
     this.data.addAll(data)
     if (highlightedAyah > 0) {
-      highlightAyah(highlightedAyah, false, highlightType ?: HighlightType.SELECTION)
+      highlightAyah(highlightedAyah, true, highlightType ?: HighlightTypes.SELECTION, true)
     }
   }
 
@@ -99,8 +112,19 @@ internal class TranslationAdapter(
     return data.firstOrNull { it.ayahInfo.ayahId == highlightedAyah }?.ayahInfo
   }
 
-  private fun highlightAyah(ayahId: Int, notify: Boolean, highlightedType: HighlightType) {
-    if (ayahId != highlightedAyah) {
+  private fun adapterInfoForAyah(sura: Int, ayah: Int): Pair<Int, Int> {
+    val matches =
+      data.withIndex().filter {
+        it.value.ayahInfo.sura == sura &&
+            it.value.ayahInfo.ayah == ayah &&
+            // don't factor in basmalah or sura name
+            it.value.type > 1
+      }
+    return (matches.firstOrNull()?.index ?: -1) to matches.size
+  }
+
+  private fun highlightAyah(ayahId: Int, notify: Boolean, highlightedType: HighlightType, force: Boolean = false) {
+    if (ayahId != highlightedAyah || force) {
       val matches = data.withIndex().filter { it.value.ayahInfo.ayahId == ayahId }
       val (startPosition, count) = (matches.firstOrNull()?.index ?: -1) to matches.size
 
@@ -133,7 +157,7 @@ internal class TranslationAdapter(
         recyclerView.handler.post {
           notifyItemRangeChanged(startChangeRange, startChangeCount, HIGHLIGHT_CHANGE)
           val layoutManager = recyclerView.layoutManager
-          if (highlightedType == HighlightType.AUDIO && layoutManager is LinearLayoutManager) {
+          if ((force || highlightedType == HighlightTypes.AUDIO) && layoutManager is LinearLayoutManager) {
             layoutManager.scrollToPositionWithOffset(startPosition, 64)
           } else {
             recyclerView.smoothScrollToPosition(startPosition)
@@ -188,7 +212,7 @@ internal class TranslationAdapter(
     val position = recyclerView.getChildAdapterPosition(view)
     if (highlightedAyah != 0 && position != RecyclerView.NO_POSITION) {
       val ayahInfo = data[position].ayahInfo
-      if (ayahInfo.ayahId != highlightedAyah && highlightType == HighlightType.SELECTION) {
+      if (ayahInfo.ayahId != highlightedAyah && highlightType == HighlightTypes.SELECTION) {
         onVerseSelectedListener.onVerseSelected(ayahInfo)
         return
       }
@@ -200,7 +224,7 @@ internal class TranslationAdapter(
     val position = recyclerView.getChildAdapterPosition(view)
     if (position != RecyclerView.NO_POSITION) {
       val ayahInfo = data[position].ayahInfo
-      highlightAyah(ayahInfo.ayahId, true, HighlightType.SELECTION)
+      highlightAyah(ayahInfo.ayahId, true, HighlightTypes.SELECTION)
       onVerseSelectedListener.onVerseSelected(ayahInfo)
       return true
     }
@@ -212,10 +236,10 @@ internal class TranslationAdapter(
     if (position != RecyclerView.NO_POSITION) {
       val data = data[position]
       val what = data.ayahInfo.ayahId to data.translationIndex
-      if (expandedTafaseerAyahs.contains(what)) {
-        expandedTafaseerAyahs.remove(what)
+      if (expandedTafseerAyahs.contains(what)) {
+        expandedTafseerAyahs.remove(what)
       } else {
-        expandedTafaseerAyahs.add(what)
+        expandedTafseerAyahs.add(what)
       }
       notifyItemChanged(position)
     }
@@ -372,7 +396,7 @@ internal class TranslationAdapter(
     translationIndex: Int
   ): CharSequence {
     if (text.length > MAX_TAFSEER_LENGTH &&
-      !expandedTafaseerAyahs.contains(ayahId to translationIndex)
+      !expandedTafseerAyahs.contains(ayahId to translationIndex)
     ) {
       // let's truncate
       val lastSpace = text.indexOf(' ', MAX_TAFSEER_LENGTH)

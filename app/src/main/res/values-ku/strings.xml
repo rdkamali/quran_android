@@ -62,7 +62,7 @@
   </plurals>
 
   <!-- Search messages -->
-  <string name="found_in_sura">دۆزرایەوە لە سورەتدا %1$s, %2$d ئایەت</string>
+  <string name="found_in_sura">دۆزرایەوە لە سورەتدا %1$s, %2$d ئایەت (پەڕەی %3$d)</string>
   <string name="no_results">ھیچ ئەنجامێک نەدۆزایەوە بۆ \"%s\"</string>
   <string name="no_arabic_search_available">داتاکانی گەڕان بە عەرەبی دانەگیراوە. تکایە دایبگرە و دووبارە هەوڵێ گەڕان بدەرەوە.</string>
   <string name="get_arabic_search_db">داگرتنی داتابەیسی گەڕانی عەرەبی</string>
@@ -86,6 +86,8 @@
   <string name="prefs_night_mode_summary">پشت شاشەی ڕەش و نوسینی سپی </string>
   <string name="prefs_night_mode_text_brightness_title">ڕووناکی نوسین</string>
   <string name="prefs_night_mode_text_brightness_summary">ڕووناکی نوسین کاتێک شیوازی شەو چالاککرا</string>
+  <string name="prefs_night_mode_background_brightness_title">درەوشانەوەی باکگراوند</string>
+  <string name="prefs_night_mode_background_brightness_summary">درەوشانەوەی لاپەڕە کاتێک مۆدی شەو چالاکە</string>
   <string name="prefs_overlay_page_info_title">پیشاندانی زانیاری پەڕە </string>
   <string name="prefs_overlay_page_info_summary">پیشاندانی ژمارەی پەڕە، ناوی سورەت، وە ژمارەی جوزئـ لەکاتی خوێندنەوەدا</string>
   <string name="prefs_display_marker_title">ئاگادارکردنەوە لە بەشەکان</string>
@@ -132,6 +134,7 @@
   <string name="quran_ayah">%1$d ئایەت</string>
   <string name="quran_sura_title">سورەت %1$s</string>
   <string name="sura_ayah_notification_str">سورەتی %1$s, ئایەتی %2$d</string>
+  <string name="sura_ayah_sharing_str">سورەتی %1$s: %2$d</string>
 
   <string name="index_loading">چاوەڕوانبە…</string>
 
@@ -181,14 +184,6 @@
   </plurals>
 
   <!-- long press -->
-  <string name="bookmark_ayah">نیشانەکردنی ئەم ئایەتە</string>
-  <string name="tag_ayah">بڕگەکردنی ئەم ئایەتە</string>
-  <string name="share_ayah">ناردنی ئایەت</string>
-  <string name="share_ayah_text">ناردنی دەقی ئایەت</string>
-  <string name="translation_ayah">وەرگێڕانی ئایەت/تەفسیر</string>
-  <string name="play_from_here">لێدان لێرەوە</string>
-  <string name="search_key">پەنجە بنێ بە دوگمەی گەڕاندا بۆ دۆزینەوەی ئایەت</string>
-  <string name="copy_ayah">لەبەرگرتنەوەی ئایەت</string>
   <string name="ayah_copied_popup">ئایەت لەبەریگیراوە</string>
 
   <!-- bookmarks & tags contextual action bar -->

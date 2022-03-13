@@ -54,6 +54,8 @@ class QuranFileUtils @Inject constructor(
   private val ayahInfoDirectory: String = pageProvider.getAyahInfoDirectoryName()
   private val imagesDirectory: String = pageProvider.getImagesDirectoryName()
 
+  val ayahInfoDbHasGlyphData = pageProvider.ayahInfoDbHasGlyphData()
+
   private val appContext: Context = context.applicationContext
   val gaplessDatabaseRootUrl: String = pageProvider.getAudioDatabasesBaseUrl()
 
@@ -98,6 +100,15 @@ class QuranFileUtils @Inject constructor(
   }
 
   override fun quranImagesDirectory(): String? = getQuranImagesDirectory(appContext)
+  override fun ayahInfoFileDirectory(): String? {
+    val base = quranAyahDatabaseDirectory
+    return if (base != null) {
+      val filename = ayaPositionFileName
+      base + File.separator + filename
+    } else {
+      null
+    }
+  }
 
   @WorkerThread
   override fun removeFilesForWidth(width: Int, directoryLambda: ((String) -> String)) {
@@ -450,6 +461,24 @@ class QuranFileUtils @Inject constructor(
     val base = getQuranBaseDirectory(context)
     return if (base == null) null else base +
         (if (imagesDirectory.isEmpty()) "" else imagesDirectory + File.separator) + "width" + widthParam
+  }
+
+  private fun recitationsDirectory(): String {
+    val recitationDirectory = getQuranBaseDirectory(appContext).toString() + "recitation/"
+    makeDirectory(recitationDirectory)
+    return recitationDirectory
+  }
+
+  override fun recitationSessionsDirectory(): String {
+    val sessionsDirectory = recitationsDirectory() + "sessions/"
+    makeDirectory(sessionsDirectory)
+    return sessionsDirectory
+  }
+
+  override fun recitationRecordingsDirectory(): String {
+    val recordingsDirectory = recitationsDirectory() + "recordings/"
+    makeDirectory(recordingsDirectory)
+    return recordingsDirectory
   }
 
   val zipFileUrl: String

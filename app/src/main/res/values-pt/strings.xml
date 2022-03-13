@@ -77,7 +77,7 @@ escolher um leitor-qari diferente. Clique play para baixar e reproduzir a págin
   </plurals>
 
   <!-- Search messages -->
-  <string name="found_in_sura">Encontrado em Sura %1$s, Ayah %2$d</string>
+  <string name="found_in_sura">Encontrado em Sura %1$s: %2$d (Página %3$d)</string>
   <string name="no_results">Nenhum resultado encontrado para \"%s\"</string>
   <string name="no_arabic_search_available">Voce ainda não fez o download do pacote de pesquisa em Àrabe. Por favor faça o download primeiro e tente novamente.</string>
   <string name="get_arabic_search_db">Obter a base de pesquisa em Árabe</string>
@@ -101,6 +101,8 @@ escolher um leitor-qari diferente. Clique play para baixar e reproduzir a págin
   <string name="prefs_night_mode_summary">Dark background and light fonts will be used</string>
   <string name="prefs_night_mode_text_brightness_title">Text Brightness</string>
   <string name="prefs_night_mode_text_brightness_summary">Brightness of the text when night mode is active</string>
+  <string name="prefs_night_mode_background_brightness_title">Brilho de fundo</string>
+  <string name="prefs_night_mode_background_brightness_summary">Luminosidade da página quando o modo nocturno está activo</string>
   <string name="prefs_overlay_page_info_title">Show page info (beta)</string>
   <string name="prefs_overlay_page_info_summary">sobreposicione númeoro da página, nome da sura, e número do juz\' durante a leitura</string>
   <string name="prefs_display_marker_title">Mostarar popups do marcador</string>
@@ -150,6 +152,7 @@ escolher um leitor-qari diferente. Clique play para baixar e reproduzir a págin
   <string name="quran_ayah">Ayah %1$d</string>
   <string name="quran_sura_title">Sura %1$s</string>
   <string name="sura_ayah_notification_str">Sura %1$s, Ayah %2$d</string>
+  <string name="sura_ayah_sharing_str">Sura %1$s: %2$d</string>
 
   <string name="index_loading">Carregando…</string>
 
@@ -199,14 +202,6 @@ escolher um leitor-qari diferente. Clique play para baixar e reproduzir a págin
   </plurals>
 
   <!-- long press -->
-  <string name="bookmark_ayah">Adicionar Ayah aos Favoritos</string>
-  <string name="tag_ayah">Marcar esta Ayah</string>
-  <string name="share_ayah">Compartilhar Link da Ayah</string>
-  <string name="share_ayah_text">Compartilhar Texto da Ayah</string>
-  <string name="translation_ayah">Ayah Tradução/Tafseer</string>
-  <string name="play_from_here">Tocar daqui</string>
-  <string name="search_key">Clique o botão de pesquisa para procurar um versículo</string>
-  <string name="copy_ayah">Copiar Ayah</string>
   <string name="ayah_copied_popup">Ayah Copiada</string>
 
   <!-- bookmarks & tags contextual action bar -->

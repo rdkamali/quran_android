@@ -42,6 +42,14 @@ public class QuranSettings {
     perInstallationPrefs = appContext.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
   }
 
+  public void registerPreferencesListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
+    prefs.registerOnSharedPreferenceChangeListener(listener);
+  }
+
+  public void unregisterPreferencesListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
+    prefs.unregisterOnSharedPreferenceChangeListener(listener);
+  }
+
   public boolean isArabicNames() {
     return prefs.getBoolean(Constants.PREF_USE_ARABIC_NAMES, false);
   }
@@ -77,6 +85,11 @@ public class QuranSettings {
   public int getNightModeTextBrightness() {
     return prefs.getInt(Constants.PREF_NIGHT_MODE_TEXT_BRIGHTNESS,
         Constants.DEFAULT_NIGHT_MODE_TEXT_BRIGHTNESS);
+  }
+
+  public int getNightModeBackgroundBrightness() {
+    return prefs.getInt(Constants.PREF_NIGHT_MODE_BACKGROUND_BRIGHTNESS,
+        Constants.DEFAULT_NIGHT_MODE_BACKGROUND_BRIGHTNESS);
   }
 
   public boolean shouldOverlayPageInfo() {

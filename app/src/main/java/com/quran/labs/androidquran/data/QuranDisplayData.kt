@@ -2,9 +2,11 @@ package com.quran.labs.androidquran.data
 
 import android.content.Context
 import android.text.TextUtils
+import androidx.annotation.StringRes
 
 import com.quran.data.core.QuranInfo
 import com.quran.data.model.SuraAyah
+import com.quran.data.model.SuraAyahIterator
 import com.quran.labs.androidquran.R
 import com.quran.labs.androidquran.util.QuranUtils
 
@@ -78,8 +80,17 @@ class QuranDisplayData @Inject constructor(private val quranInfo: QuranInfo) {
   }
 
   fun getSuraAyahString(context: Context, sura: Int, ayah: Int): String {
+    return getSuraAyahString(context, sura, ayah, R.string.sura_ayah_notification_str)
+  }
+
+  fun getSuraAyahString(context: Context, sura: Int, ayah: Int, @StringRes resource: Int): String {
     val suraName = getSuraName(context, sura, wantPrefix = false, wantTranslation = false)
-    return context.getString(R.string.sura_ayah_notification_str, suraName, ayah)
+    return context.getString(resource, suraName, ayah)
+  }
+
+  fun getSuraAyahStringForSharing(context: Context, sura: Int, ayah: Int): String {
+    val suraName = getSuraName(context, sura, wantPrefix = false, wantTranslation = false)
+    return context.getString(R.string.sura_ayah_sharing_str, suraName, ayah)
   }
 
   fun getNotificationTitle(
@@ -162,17 +173,12 @@ class QuranDisplayData @Inject constructor(private val quranInfo: QuranInfo) {
     return context.getString(R.string.quran_sura_title, getSuraNameFromPage(context, page))
   }
 
-  fun getAyahKeysOnPage(page: Int, lowerBound: SuraAyah?, upperBound: SuraAyah?): Set<String> {
+  fun getAyahKeysOnPage(page: Int): Set<String> {
     val ayahKeys: MutableSet<String> = LinkedHashSet()
     val bounds = quranInfo.getPageBounds(page)
-    var start = SuraAyah(bounds[0], bounds[1])
-    var end = SuraAyah(bounds[2], bounds[3])
-    if (lowerBound != null) {
-      start = SuraAyah.max(start, lowerBound)
-    }
-    if (upperBound != null) {
-      end = SuraAyah.min(end, upperBound)
-    }
+    val start = SuraAyah(bounds[0], bounds[1])
+    val end = SuraAyah(bounds[2], bounds[3])
+
     val iterator = SuraAyahIterator(quranInfo, start, end)
     while (iterator.next()) {
       ayahKeys.add(iterator.sura.toString() + ":" + iterator.ayah.toString())

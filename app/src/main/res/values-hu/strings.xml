@@ -81,7 +81,7 @@
     </plurals>
 
     <!-- Search messages -->
-    <string name="found_in_sura">Találat itt: szúra %1$s, Ája %2$d</string>
+    <string name="found_in_sura">Találat itt: szúra %1$s: %2$d (Oldal %3$d)</string>
     <string name="no_results">Nincs találat erre: \"%s\"</string>
     <string name="no_arabic_search_available">Nincs letöltve az arab keresési csomag. Kérem, töltse le és próbálja újra a keresést.</string>
     <string name="get_arabic_search_db">Arab keresési adatbázis letöltése</string>
@@ -105,6 +105,8 @@
     <string name="prefs_night_mode_summary">Sötét háttér és világos betűk lesznek használva</string>
     <string name="prefs_night_mode_text_brightness_title">Szöveg fényerőssége</string>
     <string name="prefs_night_mode_text_brightness_summary">A szöveg fényerőssége éjszakai mód bekapcsolásánál</string>
+  <string name="prefs_night_mode_background_brightness_title">Háttér fényerő</string>
+  <string name="prefs_night_mode_background_brightness_summary">Az oldal fényereje, ha az éjszakai üzemmód aktív</string>
     <string name="prefs_overlay_page_info_title">Oldalinfó megjelenítése</string>
     <string name="prefs_overlay_page_info_summary">Oldalszám, szúranév és dzsuzszám megjelenítése olvasás közben</string>
     <string name="prefs_display_marker_title">Felugró jelzés megjelenítése</string>
@@ -157,6 +159,7 @@
     <string name="quran_ayah">Ája %1$d</string>
     <string name="quran_sura_title">%1$s szúra</string>
     <string name="sura_ayah_notification_str">%1$s szúra, %2$d. ája</string>
+  <string name="sura_ayah_sharing_str">%1$s szúra: %2$d</string>
 
     <string name="index_loading">Betöltés&#8230;</string>
 
@@ -228,14 +231,6 @@
     </string-array>
 
     <!-- long press -->
-    <string name="bookmark_ayah">Ája könyvjelzőzése</string>
-    <string name="tag_ayah">Ája címkézése</string>
-    <string name="share_ayah">Ája hivatkozás megosztása</string>
-    <string name="share_ayah_text">Ája szöveg megosztása</string>
-    <string name="translation_ayah">Ája fordítás/tafszír</string>
-    <string name="play_from_here">Lejátszás innen</string>
-    <string name="search_key">Nyomja meg a keresés gombot egy vers kereséséhez</string>
-    <string name="copy_ayah">Ája másolása</string>
     <string name="ayah_copied_popup">Ája kimásolva</string>
 
     <!-- bookmarks & tags contextual action bar -->

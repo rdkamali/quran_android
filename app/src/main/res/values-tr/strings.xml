@@ -90,7 +90,7 @@
   <string name="storage_permission_please_restart">Bu değişikliğin geçerli olması için lütfen uygulamayı yeniden başlatın</string>
 
   <!-- Search messages -->
-  <string name="found_in_sura">%1$s suresi, %2$d.âyet</string>
+  <string name="found_in_sura">%1$s suresi, %2$d.âyet (Sayfa %3$d)</string>
   <string name="no_results">Bir sonuç bulunamadı \"%s\"</string>
   <string name="no_arabic_search_available">Arapça arama paketi indirilmedi. Lütfen indirip daha sonra tekrar deneyin</string>
   <string name="get_arabic_search_db">Arapça arama veritabanını indirin</string>
@@ -135,6 +135,8 @@
   <string name="prefs_overlay_page_info_summary">Cüz numarası, sure ismi ve sayfa numarası üstünde göster</string>
   <string name="prefs_night_mode_text_brightness_title">Metin parlaklığı</string>
   <string name="prefs_night_mode_text_brightness_summary">Gece modu açıkken metin parlaklığı</string>
+  <string name="prefs_night_mode_background_brightness_title">Arka plan parlaklığı</string>
+  <string name="prefs_night_mode_background_brightness_summary">Gece modu etkinken sayfanın parlaklığı</string>
   <string name="prefs_new_background_title">Yeni arkaplan</string>
   <string name="prefs_download_amount_title">İndirme miktarı</string>
   <string name="prefs_download_amount_summary">Ayrık olan ses dosyaları için indrime miktarı</string>
@@ -190,6 +192,7 @@
   <string name="quran_ayah_details">%1$s %2$s.âyet, %3$s.cüz</string>
   <string name="quran_sura_title">%1$s suresi</string>
   <string name="sura_ayah_notification_str">Sure %1$s, âyet %2$d</string>
+  <string name="sura_ayah_sharing_str">Sure %1$s: %2$d</string>
 
   <string name="index_loading">Yükleniyor&#8230;</string>
 
@@ -280,14 +283,6 @@
   <string name="starting_page_label">Sayfa başlangıcı</string>
 
   <!-- long press -->
-  <string name="bookmark_ayah">Bu âyeti işaretle</string>
-  <string name="tag_ayah">Bu âyeti işaretle</string>
-  <string name="share_ayah">Âyet kısayolu paylaş</string>
-  <string name="share_ayah_text">Âyet meâlini paylaş</string>
-  <string name="translation_ayah">Âyet meâli</string>
-  <string name="play_from_here">Buradan dinlemeye başla</string>
-  <string name="search_key">"Kur'an'da arama yapmak için arama tuşuna bas"</string>
-  <string name="copy_ayah">Âyet kopyala</string>
   <string name="ayah_copied_popup">Âyet kopyalandı</string>
 
   <!-- bookmarks & tags contextual action bar -->

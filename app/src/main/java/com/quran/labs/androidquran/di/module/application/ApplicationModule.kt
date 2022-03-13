@@ -15,10 +15,13 @@ import com.quran.labs.androidquran.data.QuranFileConstants
 import com.quran.labs.androidquran.util.QuranFileUtils
 import com.quran.labs.androidquran.util.QuranSettings
 import com.quran.labs.androidquran.util.SettingsImpl
+import com.quran.mobile.di.ExtraPreferencesProvider
+import com.quran.mobile.di.ExtraScreenProvider
 import dagger.Module
 import dagger.Provides
-import io.reactivex.rxjava3.core.Scheduler
+import dagger.multibindings.ElementsIntoSet
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Scheduler
 import java.io.File
 import javax.inject.Named
 import javax.inject.Singleton
@@ -75,7 +78,6 @@ class ApplicationModule(private val application: Application) {
   }
 
   @Provides
-  @Singleton
   fun provideQuranFileManager(quranFileUtils: QuranFileUtils): QuranFileManager {
     return quranFileUtils
   }
@@ -88,5 +90,17 @@ class ApplicationModule(private val application: Application) {
   @Provides
   fun provideCacheDirectory(): File {
     return application.cacheDir
+  }
+
+  @Provides
+  @ElementsIntoSet
+  fun provideExtraPreferences(): Set<ExtraPreferencesProvider> {
+    return emptySet()
+  }
+
+  @Provides
+  @ElementsIntoSet
+  fun provideExtraScreens(): Set<ExtraScreenProvider> {
+    return emptySet()
   }
 }

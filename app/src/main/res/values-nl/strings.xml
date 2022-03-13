@@ -103,7 +103,7 @@ Voor de vertaalde pagina\'s (/voor vertalingen): Ga naar instellingen en wijzig 
   <string name="storage_permission_please_restart">Gelieve de app opnieuw opstarten om de veranderingen uit te voeren.</string>
 
   <!-- Search messages -->
-  <string name="found_in_sura">Gevonden in Soera %1$s, Ayah %2$d</string>
+  <string name="found_in_sura">Gevonden in Soera %1$s: %2$d (Pagina %3$d)</string>
   <string name="no_results">Geen resultaten gevonden voor \"%s\"</string>
   <string name="no_arabic_search_available">Je hebt \"Arabisch Zoeken\" niet gedownload. Download het en probeer uw zoekopdracht opnieuw.</string>
   <string name="get_arabic_search_db">Verkrijg "Arabisch Zoeken" Database</string>
@@ -127,6 +127,8 @@ Voor de vertaalde pagina\'s (/voor vertalingen): Ga naar instellingen en wijzig 
   <string name="prefs_night_mode_summary">Gebruik een donkere achtergrond en een lichte lettertype</string>
   <string name="prefs_night_mode_text_brightness_title">Tekst helderheid</string>
   <string name="prefs_night_mode_text_brightness_summary">Helederheid van de tekst wanneer de nacht modus zijn ingeschakeld.</string>
+  <string name="prefs_night_mode_background_brightness_title">Achtergrond helderheid</string>
+  <string name="prefs_night_mode_background_brightness_summary">Helderheid van de pagina wanneer de nachtmodus actief is</string>
   <string name="prefs_overlay_page_info_title">Toon pagina info</string>
   <string name="prefs_overlay_page_info_summary">Overlay page number, sura name, and juz\' number while reading</string>
   <string name="prefs_display_marker_title">Weergeef marker popups</string>
@@ -201,6 +203,7 @@ Voor de vertaalde pagina\'s (/voor vertalingen): Ga naar instellingen en wijzig 
   <string name="quran_ayah_details">%1$s - Ayah %2$s, Juz\' %3$s</string>
   <string name="quran_sura_title">Soera %1$s</string>
   <string name="sura_ayah_notification_str">Soera %1$s, Ayah %2$d</string>
+  <string name="sura_ayah_sharing_str">Soera %1$s: %2$d</string>
 
   <string name="index_loading">Laden&#8230;</string>
 
@@ -276,14 +279,6 @@ Voor de vertaalde pagina\'s (/voor vertalingen): Ga naar instellingen en wijzig 
   </string-array>
 
   <!-- long press -->
-  <string name="bookmark_ayah">Bladwijzer deze Ayah</string>
-  <string name="tag_ayah">Label deze Ayah</string>
-  <string name="share_ayah">Deel Ayah Link</string>
-  <string name="share_ayah_text">Deel Ayah Tekst</string>
-  <string name="translation_ayah">Ayah Vertaling/Tafseer</string>
-  <string name="play_from_here">Afspelen van hier</string>
-  <string name="search_key">Druk op de zoek-toets om een vers te zoeken.</string>
-  <string name="copy_ayah">Kopieer Ayah</string>
   <string name="ayah_copied_popup">Ayah Gekopieerd</string>
 
   <!-- bookmarks & tags contextual action bar -->

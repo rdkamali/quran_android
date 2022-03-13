@@ -8,13 +8,11 @@ import com.quran.data.model.SuraAyah
 import com.quran.labs.androidquran.R
 import com.quran.labs.androidquran.common.audio.QariItem
 import com.quran.labs.androidquran.service.AudioService
-import dagger.Reusable
 import timber.log.Timber
 import java.io.File
 import java.util.Locale
 import javax.inject.Inject
 
-@Reusable
 class AudioUtils @Inject
 constructor(private val quranInfo: QuranInfo, private val quranFileUtils: QuranFileUtils) {
 

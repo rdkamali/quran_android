@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.res.Resources
 import androidx.work.Configuration
 import androidx.work.WorkManager
-import com.quran.data.di.QuranPageDependencies
-import com.quran.data.di.QuranPageDependenciesProvider
 import com.quran.labs.androidquran.core.worker.QuranWorkerFactory
 import com.quran.labs.androidquran.di.component.application.ApplicationComponent
 import com.quran.labs.androidquran.di.component.application.DaggerApplicationComponent
@@ -14,16 +12,21 @@ import com.quran.labs.androidquran.di.module.application.ApplicationModule
 import com.quran.labs.androidquran.util.QuranSettings
 import com.quran.labs.androidquran.util.RecordingLogTree
 import com.quran.labs.androidquran.widget.BookmarksWidgetSubscriber
+import com.quran.mobile.di.QuranApplicationComponent
+import com.quran.mobile.di.QuranApplicationComponentProvider
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
-open class QuranApplication : Application(), QuranPageDependenciesProvider {
+open class QuranApplication : Application(), QuranApplicationComponentProvider {
   lateinit var applicationComponent: ApplicationComponent
 
   @Inject lateinit var quranWorkerFactory: QuranWorkerFactory
   @Inject lateinit var bookmarksWidgetSubscriber: BookmarksWidgetSubscriber
-  @Inject lateinit var quranPageDependencies: QuranPageDependencies
+
+  override fun provideQuranApplicationComponent(): QuranApplicationComponent {
+    return applicationComponent
+  }
 
   override fun onCreate() {
     super.onCreate()
@@ -48,8 +51,6 @@ open class QuranApplication : Application(), QuranPageDependenciesProvider {
         .applicationModule(ApplicationModule(this))
         .build()
   }
-
-  override fun provideQuranPageDependencies(): QuranPageDependencies = quranPageDependencies
 
   fun refreshLocale(
     context: Context,

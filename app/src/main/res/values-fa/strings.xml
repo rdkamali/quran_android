@@ -62,7 +62,7 @@
   </plurals>
 
   <!-- Search messages -->
-  <string name="found_in_sura">در آیه %2$d از سوره %1$s</string>
+  <string name="found_in_sura">در آیه %2$d از سوره %1$s (صفحه %3$d)</string>
   <string name="no_results">جستجوی «%s» هیچ نتیجه‌ای دربرنداشت.</string>
   <string name="no_arabic_search_available">متن عربی قرآن هنوز بارگذاری نشده است. لطفاً ابتدا آن را دریافت نمایید.</string>
   <string name="get_arabic_search_db">متن عربی قرآن را برای جستجو در متن دریافت کنید.</string>
@@ -83,6 +83,8 @@
   <string name="prefs_night_mode_summary">استفاده از پس‌زمینه تاریک و نوشته‌های روشن</string>
   <string name="prefs_night_mode_text_brightness_title">روشنایی متن</string>
   <string name="prefs_night_mode_text_brightness_summary">میزان روشنایی متن در حالت شبانه</string>
+  <string name="prefs_night_mode_background_brightness_title">درخشش پس زمینه</string>
+  <string name="prefs_night_mode_background_brightness_summary">روشنایی صفحه زمانی که حالت شب فعال است</string>
   <string name="prefs_display_marker_title">نمایش پیغام‌ها</string>
   <string name="prefs_display_marker_summary">فعال‌سازی پیغام‌های رسیدن به جزء، حزب و …</string>
   <string name="prefs_translation_text_title">اندازه قلم ترجمه</string>
@@ -116,6 +118,7 @@
   <string name="quran_ayah">آیه %1$d</string>
   <string name="quran_sura_title">سوره %1$s</string>
   <string name="sura_ayah_notification_str">سوره %1$s، آیه %2$d</string>
+  <string name="sura_ayah_sharing_str">سوره %1$s: %2$d</string>
 
   <string name="index_loading">بارگذاری…</string>
 
@@ -161,13 +164,6 @@
   </plurals>
 
   <!-- long press -->
-  <string name="bookmark_ayah">نشانک‌گذاری بر آیه</string>
-  <string name="tag_ayah">برچسب‌گذاری بر آیه</string>
-  <string name="share_ayah">اشتراک‌گذاری آیه</string>
-  <string name="translation_ayah">ترجمه آیه</string>
-  <string name="play_from_here">شروع پخش از این آیه</string>
-  <string name="search_key">دکمه جستجو را بفشارید</string>
-  <string name="copy_ayah">کپی کردن آیه</string>
   <string name="ayah_copied_popup">آیه کپی شد</string>
 
   <!-- bookmarks & tags contextual action bar -->
@@ -258,7 +254,6 @@
   <string name="prefs_volume_key_navigation_title">ورق زدن با دکمه‌های صدا</string>
   <string name="quran_ayah_details">%1$s - آیه %2$s، جزء %3$s</string>
   <string name="sdcard_error">کارت حافظه یافت نشد. آن را دوباره در دستگاه قرار داده و بار دیگر امتحان نمایید.</string>
-  <string name="share_ayah_text">اشتراک‌گذاری متن آیه</string>
   <string name="undo">واگرد</string>
   <string name="warning">هشدار</string>
   <string name="download_sura_ayah_progress">بارگذاری سوره %1$d آیه %2$d</string>

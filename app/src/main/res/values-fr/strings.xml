@@ -79,7 +79,7 @@
   <string name="quranSearchType">Ayāt du Coran</string>
 
   <!-- Search messages -->
-  <string name="found_in_sura">Trouvée dans la sourate %1$s Aya %2$d</string>
+  <string name="found_in_sura">Trouvée dans la sourate %1$s: %2$d (Page %3$d)</string>
   <string name="no_results">Aucun resultat pour \"%s\"</string>
   <string name="no_arabic_search_available">Vous n\'avez pas téléchargé le pack de recherche arabe.  S\'il vous plaît veuillez le télécharger et recommencez votre recherche.</string>
   <string name="get_arabic_search_db">Télécharger la base de données de recherche arabe</string>
@@ -103,6 +103,8 @@
   <string name="prefs_night_mode_summary">Un fond sombre et des polices lumineuses seront utilisés.</string>
   <string name="prefs_night_mode_text_brightness_title">Luminosité du texte</string>
   <string name="prefs_night_mode_text_brightness_summary">Luminosité du texte lorsque le mode nuit est actif</string>
+  <string name="prefs_night_mode_background_brightness_title">Luminosité de fond</string>
+  <string name="prefs_night_mode_background_brightness_summary">Luminosité de la page lorsque le mode nuit est actif</string>
   <string name="prefs_overlay_page_info_title">Afficher des infos </string>
   <string name="prefs_overlay_page_info_summary">Affiche le numéro de page, le nom de la sourate et le numéro du juz\' lors la lecture.</string>
   <string name="prefs_display_marker_title">Montrer un popup de repère</string>
@@ -180,6 +182,7 @@
   <string name="quran_ayah_details">%1$s - Aya %2$s, Juz\' %3$s</string>
   <string name="quran_sura_title">Sourate %1$s</string>
   <string name="sura_ayah_notification_str">Sourate %1$s, Aya %2$d</string>
+  <string name="sura_ayah_sharing_str">Sourate %1$s: %2$d</string>
   <string name="index_loading">Chargement…</string>
   <string name="canceling">Annulation…</string>
   <string name="juz2_description">Juz\' %1$s</string>
@@ -226,6 +229,7 @@
   <string name="madani">Madani</string>
   <plurals name="verses">
     <item quantity="one">%s Aya</item>
+    <item quantity="many">%s Ayāt</item>
     <item quantity="other">%s Ayāt</item>
   </plurals>
 
@@ -251,14 +255,6 @@
   </string-array>
 
   <!-- long press -->
-  <string name="bookmark_ayah">Ajouter l\'Aya aux favoris</string>
-  <string name="tag_ayah">Étiqueter cette Aya</string>
-  <string name="share_ayah">Partager cette Aya</string>
-  <string name="share_ayah_text">Partager le texte de l\'Aya</string>
-  <string name="translation_ayah">Traduction/exégèse de l\'Aya</string>
-  <string name="play_from_here">Écouter à partir d\'ici</string>
-  <string name="search_key">Appuyez sur la touche de recherche pour rechercher une Aya</string>
-  <string name="copy_ayah">Copier l\'Aya</string>
   <string name="ayah_copied_popup">Aya copiée</string>
 
   <!-- bookmarks & tags contextual action bar -->
@@ -278,6 +274,7 @@
   <!-- Shown above search results when we receive a search request. -->
   <plurals name="search_results">
     <item quantity="one">résultat pour \"%1$s\": </item>
+    <item quantity="many">%2$d résultats pour \"%1$s\": </item>
     <item quantity="other">%2$d résultats pour \"%1$s\": </item>
   </plurals>
   <string name="undo">Annuler</string>
