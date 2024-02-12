@@ -112,6 +112,10 @@ public class QuranSettings {
     return prefs.getBoolean(Constants.PREF_AYAH_BEFORE_TRANSLATION, true);
   }
 
+  public boolean wantDyslexicFontInTranslationView() {
+    return prefs.getBoolean(Constants.PREF_USE_DYSLEXIC_FONT, false);
+  }
+
   public int getPreferredDownloadAmount() {
     String str = prefs.getString(Constants.PREF_DOWNLOAD_AMOUNT,
         "" + AudioUtils.LookAheadAmount.PAGE);
@@ -156,6 +160,24 @@ public class QuranSettings {
 
   public String getPageType() {
     return prefs.getString(Constants.PREF_PAGE_TYPE, null);
+  }
+
+  // only available for Naskh, should return false by default for non-Naskh pages
+  public boolean isSidelines() {
+    return prefs.getBoolean(Constants.PREF_SHOW_SIDELINES, false);
+  }
+
+  public void setSidelines(boolean sidelines) {
+    prefs.edit().putBoolean(Constants.PREF_SHOW_SIDELINES, sidelines).apply();
+  }
+
+  // only available for Naskh, should return false by default for non-Naskh pages
+  public boolean isShowLineDividers() {
+    return prefs.getBoolean(Constants.PREF_SHOW_LINE_DIVIDERS, false);
+  }
+
+  public void setShowLineDividers(boolean showLineDividers) {
+    prefs.edit().putBoolean(Constants.PREF_SHOW_LINE_DIVIDERS, showLineDividers).apply();
   }
 
   public void setPageType(String pageType) {

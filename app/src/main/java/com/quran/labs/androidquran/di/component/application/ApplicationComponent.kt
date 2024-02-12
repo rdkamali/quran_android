@@ -1,5 +1,6 @@
 package com.quran.labs.androidquran.di.component.application
 
+import android.content.Context
 import com.quran.analytics.provider.AnalyticsModule
 import com.quran.common.networking.NetworkModule
 import com.quran.data.di.AppScope
@@ -11,8 +12,7 @@ import com.quran.labs.androidquran.QuranImportActivity
 import com.quran.labs.androidquran.SearchActivity
 import com.quran.labs.androidquran.core.worker.di.WorkerModule
 import com.quran.labs.androidquran.data.QuranDataProvider
-import com.quran.labs.androidquran.di.component.activity.PagerActivityComponent
-import com.quran.labs.androidquran.di.component.activity.QuranActivityComponent
+import com.quran.labs.androidquran.di.component.activity.ActivityComponent
 import com.quran.labs.androidquran.di.module.application.ApplicationModule
 import com.quran.labs.androidquran.di.module.application.DatabaseModule
 import com.quran.labs.androidquran.di.module.application.PageAggregationModule
@@ -20,8 +20,6 @@ import com.quran.labs.androidquran.di.module.widgets.BookmarksWidgetUpdaterModul
 import com.quran.labs.androidquran.pageselect.PageSelectActivity
 import com.quran.labs.androidquran.service.AudioService
 import com.quran.labs.androidquran.service.QuranDownloadService
-import com.quran.labs.androidquran.ui.AudioManagerActivity
-import com.quran.labs.androidquran.ui.SheikhAudioManagerActivity
 import com.quran.labs.androidquran.ui.TranslationManagerActivity
 import com.quran.labs.androidquran.ui.fragment.AddTagDialog
 import com.quran.labs.androidquran.ui.fragment.BookmarksFragment
@@ -35,7 +33,10 @@ import com.quran.labs.androidquran.widget.BookmarksWidget
 import com.quran.labs.androidquran.widget.BookmarksWidgetListProvider
 import com.quran.labs.androidquran.widget.ShowJumpFragmentActivity
 import com.quran.mobile.di.QuranApplicationComponent
+import com.quran.mobile.di.qualifier.ApplicationContext
 import com.squareup.anvil.annotations.MergeComponent
+import dagger.BindsInstance
+import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
@@ -52,10 +53,9 @@ import javax.inject.Singleton
     BookmarksWidgetUpdaterModule::class
   ]
 )
-interface ApplicationComponent: QuranApplicationComponent {
+interface ApplicationComponent : QuranApplicationComponent {
   // subcomponents
-  fun pagerActivityComponentBuilder(): PagerActivityComponent.Builder
-  fun quranActivityComponentBuilder(): QuranActivityComponent.Builder
+  fun activityComponentFactory(): ActivityComponent.Factory
 
   // application
   fun inject(quranApplication: QuranApplication)
@@ -70,8 +70,6 @@ interface ApplicationComponent: QuranApplicationComponent {
   // activities
   fun inject(quranDataActivity: QuranDataActivity)
   fun inject(quranImportActivity: QuranImportActivity)
-  fun inject(audioManagerActivity: AudioManagerActivity)
-  fun inject(sheikhAudioManagerActivity: SheikhAudioManagerActivity)
   fun inject(quranForwarderActivity: QuranForwarderActivity)
   fun inject(searchActivity: SearchActivity)
   fun inject(pageSelectActivity: PageSelectActivity)
@@ -93,4 +91,9 @@ interface ApplicationComponent: QuranApplicationComponent {
   // widgets
   fun inject(bookmarksWidgetListProvider: BookmarksWidgetListProvider)
   fun inject(bookmarksWidget: BookmarksWidget)
+
+  @Component.Factory
+  interface Factory {
+    fun generate(@BindsInstance @ApplicationContext appContext: Context): ApplicationComponent
+  }
 }

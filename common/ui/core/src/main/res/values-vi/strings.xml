@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="remove_button">Xóa</string>
+  <string name="cancel">Hủy</string>
+  <string name="from">Từ</string>
+  <string name="to">Đến</string>
+  <string name="loading">Đang tải&#8230;</string>
+  <string name="canceling">Đang hủy&#8230;</string>
+</resources>

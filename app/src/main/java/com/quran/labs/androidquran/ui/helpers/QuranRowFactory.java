@@ -66,7 +66,7 @@ public class QuranRowFactory {
           .withBookmark(bookmark)
           .withDate(bookmark.getTimestamp())
           .withSura(sura)
-          .withImageResource(R.drawable.ic_favorite);
+          .withImageResource(com.quran.labs.androidquran.common.toolbar.R.drawable.ic_favorite);
     } else {
       String ayahText = bookmark.getAyahText();
 
@@ -76,7 +76,7 @@ public class QuranRowFactory {
         title = quranDisplayData.getAyahString(bookmark.getSura(), bookmark.getAyah(), context);
         metadata = quranDisplayData.getPageSubtitle(context, bookmark.getPage());
       } else {
-        title = ayahText;
+        title = ayahText + "...";
         metadata = quranDisplayData.getAyahMetadata(bookmark.getSura(), bookmark.getAyah(),
             bookmark.getPage(), context);
       }
@@ -86,7 +86,7 @@ public class QuranRowFactory {
           .withType(QuranRow.AYAH_BOOKMARK)
           .withBookmark(bookmark)
           .withDate(bookmark.getTimestamp())
-          .withImageResource(R.drawable.ic_favorite)
+          .withImageResource(com.quran.labs.androidquran.common.toolbar.R.drawable.ic_favorite)
           .withImageOverlayColor(ContextCompat.getColor(context, R.color.ayah_bookmark_color));
     }
 

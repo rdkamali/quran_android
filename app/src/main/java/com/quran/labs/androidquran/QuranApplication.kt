@@ -8,7 +8,6 @@ import androidx.work.WorkManager
 import com.quran.labs.androidquran.core.worker.QuranWorkerFactory
 import com.quran.labs.androidquran.di.component.application.ApplicationComponent
 import com.quran.labs.androidquran.di.component.application.DaggerApplicationComponent
-import com.quran.labs.androidquran.di.module.application.ApplicationModule
 import com.quran.labs.androidquran.util.QuranSettings
 import com.quran.labs.androidquran.util.RecordingLogTree
 import com.quran.labs.androidquran.widget.BookmarksWidgetSubscriber
@@ -33,12 +32,7 @@ open class QuranApplication : Application(), QuranApplicationComponentProvider {
     setupTimber()
     applicationComponent = initializeInjector()
     applicationComponent.inject(this)
-    WorkManager.initialize(
-        this,
-        Configuration.Builder()
-            .setWorkerFactory(quranWorkerFactory)
-            .build()
-    )
+    initializeWorkManager()
     bookmarksWidgetSubscriber.subscribeBookmarksWidgetIfNecessary()
   }
 
@@ -47,9 +41,17 @@ open class QuranApplication : Application(), QuranApplicationComponentProvider {
   }
 
   open fun initializeInjector(): ApplicationComponent {
-    return DaggerApplicationComponent.builder()
-        .applicationModule(ApplicationModule(this))
+    return DaggerApplicationComponent.factory()
+      .generate(this)
+  }
+
+  open fun initializeWorkManager() {
+    WorkManager.initialize(
+      this,
+      Configuration.Builder()
+        .setWorkerFactory(quranWorkerFactory)
         .build()
+    )
   }
 
   fun refreshLocale(

@@ -1,8 +1,10 @@
 package com.quran.labs.androidquran.model.bookmark;
 
-import com.quran.data.model.bookmark.Tag;
+import androidx.core.util.Pair;
+
 import com.quran.data.model.bookmark.Bookmark;
 import com.quran.data.model.bookmark.BookmarkData;
+import com.quran.data.model.bookmark.Tag;
 import com.quran.labs.androidquran.database.BookmarksDBAdapter;
 import com.quran.labs.androidquran.ui.helpers.QuranRow;
 
@@ -13,8 +15,6 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import androidx.core.util.Pair;
-
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
@@ -24,6 +24,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
 
 
+@Deprecated // Use BookmarksDao instead
 @Singleton
 public class BookmarkModel {
   private final RecentPageModel recentPageModel;
@@ -164,23 +165,6 @@ public class BookmarkModel {
     return Observable.fromArray(pages)
         .map(page -> new Pair<>(page, bookmarksDBAdapter.getBookmarkId(null, null, page) > 0))
         .subscribeOn(Schedulers.io());
-  }
-
-  public Single<Boolean> toggleBookmarkObservable(
-      final Integer sura, final Integer ayah, final int page) {
-    return getBookmarkId(sura, ayah, page)
-        .map(bookmarkId -> {
-          boolean result;
-          if (bookmarkId > 0) {
-            bookmarksDBAdapter.removeBookmark(bookmarkId);
-            result = false;
-          } else {
-            bookmarksDBAdapter.addBookmark(sura, ayah, page);
-            result = true;
-          }
-          bookmarksPublishSubject.onNext(true);
-          return result;
-        }).subscribeOn(Schedulers.io());
   }
 
   public Observable<Boolean> importBookmarksObservable(final BookmarkData data) {

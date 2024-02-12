@@ -22,17 +22,14 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog.Builder
 import androidx.fragment.app.DialogFragment
+import com.quran.common.search.SearchTextUtil
 import com.quran.data.core.QuranInfo
 import com.quran.labs.androidquran.QuranApplication
 import com.quran.labs.androidquran.R
-import com.quran.labs.androidquran.R.array
-import com.quran.labs.androidquran.R.layout
-import com.quran.labs.androidquran.R.string
 import com.quran.labs.androidquran.ui.helpers.JumpDestination
 import com.quran.labs.androidquran.util.QuranUtils
 import com.quran.labs.androidquran.view.ForceCompleteTextView
 import timber.log.Timber
-import java.text.Normalizer
 import javax.inject.Inject
 
 /**
@@ -54,14 +51,14 @@ class JumpFragment : DialogFragment() {
     val inflater = activity.layoutInflater
 
     @SuppressLint("InflateParams")
-    val layout = inflater.inflate(layout.jump_dialog, null)
+    val layout = inflater.inflate(R.layout.jump_dialog, null)
 
     val builder = Builder(activity)
-    builder.setTitle(activity.getString(string.menu_jump))
+    builder.setTitle(activity.getString(R.string.menu_jump))
 
     // Sura chooser
     suraInput = layout.findViewById(R.id.sura_spinner)
-    val suras = activity.resources.getStringArray(array.sura_names)
+    val suras = activity.resources.getStringArray(R.array.sura_names)
         .mapIndexed { index: Int, sura: String? ->
           QuranUtils.getLocalizedNumber(activity, index + 1) + ". " + sura
         }
@@ -166,7 +163,7 @@ class JumpFragment : DialogFragment() {
 
     builder.setView(layout)
     builder.setPositiveButton(
-        getString(string.dialog_ok)
+        getString(R.string.dialog_ok)
     ) { _: DialogInterface?, _: Int ->
       // trigger sura completion
       layout.requestFocus()
@@ -219,21 +216,7 @@ class JumpFragment : DialogFragment() {
     private var items: List<String>
     private val inflater: LayoutInflater
     private val filter: Filter = ItemFilter()
-    private val isRtl = QuranUtils.isRtl(originalItems.first())
-
-    // via https://stackoverflow.com/questions/51731574/
-    private val nonSpacingCombiningCharactersRegex = "\\p{Mn}+".toRegex()
-
-    // via https://stackoverflow.com/questions/25562974/
-    private val tashkeelRegex = "[\\x{064B}-\\x{065B}]|[\\x{063B}-\\x{063F}]|[\\x{064B}-\\x{065E}]|[\\x{066A}-\\x{06FF}]".toRegex()
-
-    // alifs with hamzas that we'll replace with \u0627
-    private val alifReplacementsRegex = "[\\u0622\\u0623\\u0625\\u0649]".toRegex()
-    // waw with hamza to replace with \u0648
-    private val wawReplacementsRegex = "\\u0624".toRegex()
-
-    // extra characters to remove when comparing non-Arabic strings
-    private val charactersToReplaceRegex = "['`]".toRegex()
+    private val isRtl = SearchTextUtil.isRtl(originalItems.first())
     private val searchPreparedItems = originalItems.map { prepareForSearch(it, isRtl) }
 
     init {
@@ -259,21 +242,8 @@ class JumpFragment : DialogFragment() {
     override fun getFilter() = filter
 
     private fun prepareForSearch(input: String, isRtl: Boolean): String {
-      return if (isRtl) {
-        normalizeAlifsAndWaws(input.replace(tashkeelRegex, ""))
-      } else {
-        // via https://stackoverflow.com/questions/51731574/
-        Normalizer.normalize(input, Normalizer.Form.NFD)
-          .replace(nonSpacingCombiningCharactersRegex, "")
-          .replace(charactersToReplaceRegex, "")
-          .lowercase()
-      }
+      return SearchTextUtil.asSearchableString(input, isRtl)
     }
-
-    private fun normalizeAlifsAndWaws(input: String): String =
-      input
-        .replace(alifReplacementsRegex, "\u0627")
-        .replace(wawReplacementsRegex, "\u0648")
 
     /**
      * Filter that do filtering by matching case-insensitive infix of the input.
@@ -301,8 +271,8 @@ class JumpFragment : DialogFragment() {
       }
 
       private fun cleanUpQueryString(query: String): String {
-        return if (QuranUtils.isRtl(query)) {
-          normalizeAlifsAndWaws(query)
+        return if (SearchTextUtil.isRtl(query)) {
+          SearchTextUtil.asSearchableString(query, true)
         } else {
           query.lowercase()
         }

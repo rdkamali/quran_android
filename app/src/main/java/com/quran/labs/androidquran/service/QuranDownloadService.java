@@ -11,11 +11,14 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Parcelable;
 import android.os.StatFs;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.quran.data.core.QuranInfo;
-import com.quran.labs.androidquran.QuranApplication;
 import com.quran.data.model.SuraAyah;
+import com.quran.labs.androidquran.QuranApplication;
 import com.quran.labs.androidquran.extension.CloseableExtensionKt;
 import com.quran.labs.androidquran.service.util.QuranDownloadNotifier;
 import com.quran.labs.androidquran.service.util.QuranDownloadNotifier.NotificationDetails;
@@ -24,6 +27,7 @@ import com.quran.labs.androidquran.util.QuranSettings;
 import com.quran.labs.androidquran.util.QuranUtils;
 import com.quran.labs.androidquran.util.UrlUtil;
 import com.quran.labs.androidquran.util.ZipUtils;
+import com.quran.mobile.common.download.DownloadInfoStreams;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +38,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.inject.Inject;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -67,6 +70,7 @@ public class QuranDownloadService extends Service implements
   public static final String EXTRA_REPEAT_LAST_ERROR = "repeatLastError";
   public static final String EXTRA_DOWNLOAD_TYPE = "downloadType";
   public static final String EXTRA_OUTPUT_FILE_NAME = "outputFileName";
+  public static final String EXTRA_METADATA= "metadata";
 
   // extras for range downloads
   public static final String EXTRA_START_VERSE = "startVerse";
@@ -117,6 +121,7 @@ public class QuranDownloadService extends Service implements
   @Inject QuranInfo quranInfo;
   @Inject OkHttpClient okHttpClient;
   @Inject UrlUtil urlUtil;
+  @Inject DownloadInfoStreams downloadInfoStreams;
 
   private final class ServiceHandler extends Handler {
 
@@ -143,7 +148,6 @@ public class QuranDownloadService extends Service implements
     thread.start();
 
     Context appContext = getApplicationContext();
-    notifier = new QuranDownloadNotifier(this, this);
     wifiLock = ((WifiManager) appContext.getSystemService(Context.WIFI_SERVICE))
         .createWifiLock(WifiManager.WIFI_MODE_FULL, "downloadLock");
 
@@ -156,6 +160,7 @@ public class QuranDownloadService extends Service implements
 
     ((QuranApplication) getApplication()).getApplicationComponent().inject(this);
     broadcastManager = LocalBroadcastManager.getInstance(appContext);
+    notifier = new QuranDownloadNotifier(this, this, downloadInfoStreams);
   }
 
   private void handleOnStartCommand(Intent intent, int startId) {
@@ -234,13 +239,15 @@ public class QuranDownloadService extends Service implements
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-    // if it's a download, it wants to be a foreground service.
-    // quickly start as foreground before actually enqueueing the request.
-    if (ACTION_DOWNLOAD_URL.equals(intent.getAction())) {
-      notifier.notifyDownloadStarting();
-    }
+    if (intent != null) {
+      // if it's a download, it wants to be a foreground service.
+      // quickly start as foreground before actually enqueueing the request.
+      if (ACTION_DOWNLOAD_URL.equals(intent.getAction())) {
+        notifier.notifyDownloadStarting();
+      }
 
-    handleOnStartCommand(intent, startId);
+      handleOnStartCommand(intent, startId);
+    }
     return START_NOT_STICKY;
   }
 
@@ -264,9 +271,10 @@ public class QuranDownloadService extends Service implements
       int type = intent.getIntExtra(EXTRA_DOWNLOAD_TYPE, 0);
       String notificationTitle =
           intent.getStringExtra(EXTRA_NOTIFICATION_NAME);
+      Parcelable metadata = intent.getParcelableExtra(EXTRA_METADATA);
 
       NotificationDetails details =
-          new NotificationDetails(notificationTitle, key, type);
+          new NotificationDetails(notificationTitle, key, type, metadata);
       // check if already downloaded, and if so, send broadcast
       boolean isZipFile = url.endsWith(".zip");
       if (isZipFile && successfulZippedDownloads.containsKey(url)) {
@@ -335,6 +343,7 @@ public class QuranDownloadService extends Service implements
     if (result) {
       lastSentIntent = notifier.notifyDownloadSuccessful(details);
     }
+    notifier.notifyFileDownloaded(details, outputFile);
     return result;
   }
 
@@ -412,6 +421,7 @@ public class QuranDownloadService extends Service implements
           if (!result) {
             return false;
           }
+          notifier.notifyFileDownloaded(details, filename);
         }
         details.currentFile++;
         continue;
@@ -430,6 +440,7 @@ public class QuranDownloadService extends Service implements
           if (!result) {
             return false;
           }
+          notifier.notifyFileDownloaded(details, destFile);
         }
 
         details.currentFile++;
@@ -492,7 +503,7 @@ public class QuranDownloadService extends Service implements
       } else if (res == QuranDownloadNotifier.ERROR_DISK_SPACE ||
           res == QuranDownloadNotifier.ERROR_PERMISSIONS) {
         // critical errors
-        notifier.notifyError(res, true, details);
+        notifier.notifyError(res, true, outputFile, details);
         return false;
       } else if (res == QuranDownloadNotifier.ERROR_INVALID_DOWNLOAD) {
         // corrupted download
@@ -504,7 +515,7 @@ public class QuranDownloadService extends Service implements
         }
 
         if (i + 1 < RETRY_COUNT) {
-          notifyError(res, false, details);
+          notifyError(res, false, outputFile, details);
         }
       }
     }
@@ -512,15 +523,14 @@ public class QuranDownloadService extends Service implements
     if (isDownloadCanceled) {
       res = QuranDownloadNotifier.ERROR_CANCELLED;
     }
-    notifyError(res, true, details);
+    notifyError(res, true, outputFile, details);
     return false;
   }
 
   private int startDownload(String url, String path,
       String filename, NotificationDetails notificationInfo) {
     if (!QuranUtils.haveInternet(this)) {
-      notifyError(QuranDownloadNotifier.ERROR_NETWORK,
-          false, notificationInfo);
+      notifyError(QuranDownloadNotifier.ERROR_NETWORK, false, filename, notificationInfo);
       return QuranDownloadNotifier.ERROR_NETWORK;
     }
     final int result = downloadUrl(url, path, filename, notificationInfo);
@@ -599,7 +609,7 @@ public class QuranDownloadService extends Service implements
         if (isDownloadCanceled) {
           return QuranDownloadNotifier.ERROR_CANCELLED;
         } else if (!partialFile.renameTo(actualFile)) {
-          return notifyError(QuranDownloadNotifier.ERROR_PERMISSIONS, true, notificationInfo);
+          return notifyError(QuranDownloadNotifier.ERROR_PERMISSIONS, true, filename, notificationInfo);
         }
         return DOWNLOAD_SUCCESS;
       } else if (response.code() == 416) {
@@ -621,7 +631,7 @@ public class QuranDownloadService extends Service implements
     return (call != null && call.isCanceled()) ?
         QuranDownloadNotifier.ERROR_CANCELLED :
         notifyError(QuranDownloadNotifier.ERROR_NETWORK,
-            false, notificationInfo);
+            false, filename, notificationInfo);
   }
 
   @Override
@@ -632,8 +642,8 @@ public class QuranDownloadService extends Service implements
     }
   }
 
-  private int notifyError(int errorCode, boolean isFatal, NotificationDetails details) {
-    lastSentIntent = notifier.notifyError(errorCode, isFatal, details);
+  private int notifyError(int errorCode, boolean isFatal, String filename, NotificationDetails details) {
+    lastSentIntent = notifier.notifyError(errorCode, isFatal, filename, details);
 
     if (isFatal) {
       // write last error in prefs

@@ -7,7 +7,6 @@ import com.quran.labs.androidquran.model.bookmark.BookmarkModel
 import com.quran.labs.androidquran.presenter.Presenter
 import com.quran.labs.androidquran.util.ImageUtil
 import com.quran.labs.androidquran.util.QuranFileUtils
-import com.quran.labs.androidquran.util.UrlUtil
 import dagger.Reusable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -22,7 +21,6 @@ constructor(
   private val imageUtil: ImageUtil,
   private val quranFileUtils: QuranFileUtils,
   private val mainThreadScheduler: Scheduler,
-  private val urlUtil: UrlUtil,
   private val bookmarksDao: BookmarksDao,
   // unfortunately needed for now due to the old Rx code
   // not knowing about changes from BookmarksDao, etc.
@@ -31,7 +29,7 @@ constructor(
   Map<@JvmSuppressWildcards String, @JvmSuppressWildcards PageProvider>
 ) :
   Presenter<PageSelectActivity> {
-  private val baseUrl = "https://android.quran.com/data/pagetypes/snips"
+  private val baseUrl = "https://quran.app/data/pagetypes/snips"
   private val compositeDisposable = CompositeDisposable()
   private val downloadingSet = mutableSetOf<String>()
   private var currentView: PageSelectActivity? = null
@@ -56,7 +54,7 @@ constructor(
           compositeDisposable.add(
             imageUtil.downloadImage(url, previewImage)
               .onErrorResumeWith(
-                imageUtil.downloadImage(urlUtil.fallbackUrl(url), previewImage)
+                imageUtil.downloadImage(url, previewImage)
               )
               .subscribeOn(Schedulers.io())
               .observeOn(mainThreadScheduler)
@@ -103,14 +101,33 @@ constructor(
       val updatedBookmarks = bookmarksDao.bookmarks()
         .map {
           val page = it.page
-          val (pageSura, pageAyah) = suraAyahFromPage(page)
-          val sura = it.sura ?: pageSura
-          val ayah = it.ayah ?: pageAyah
+          if (page - 1 >= sourcePageSuraStart.size) {
+            if (it.isPageBookmark()) {
+              // this bookmark is on a page that doesn't exist in the old page type
+              if (destination.suraForPageArray.size > page) {
+                // but it does exist on the new type, so it's ok, let's not re-map
+                it
+              } else {
+                // we can't map it, so let's just put it as the max page number to avoid bad data
+                it.copy(page = sourcePageAyahStart.size - 1)
+              }
+            } else {
+              // ayah bookmark, so let's just map it
+              val sura = requireNotNull(it.sura)
+              val ayah = requireNotNull(it.ayah)
+              val mappedPage = destinationQuranInfo.getPageFromSuraAyah(sura, ayah)
+              it.copy(page = mappedPage)
+            }
+          } else {
+            val (pageSura, pageAyah) = suraAyahFromPage(page)
+            val sura = it.sura ?: pageSura
+            val ayah = it.ayah ?: pageAyah
 
-          val mappedPage = destinationQuranInfo.getPageFromSuraAyah(sura, ayah)
+            val mappedPage = destinationQuranInfo.getPageFromSuraAyah(sura, ayah)
 
-          // we only copy the page because sura and ayah are the same.
-          it.copy(page = mappedPage)
+            // we only copy the page because sura and ayah are the same.
+            it.copy(page = mappedPage)
+          }
         }
 
       if (updatedBookmarks.isNotEmpty()) {

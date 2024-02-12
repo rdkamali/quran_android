@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="remove_button">Supprimer</string>
+  <string name="cancel">Annuler</string>
+  <string name="from">Depuis</string>
+  <string name="to">À</string>
+  <string name="loading">Chargement…</string>
+  <string name="canceling">Annulation…</string>
+</resources>

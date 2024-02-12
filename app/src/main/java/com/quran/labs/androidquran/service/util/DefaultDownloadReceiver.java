@@ -167,24 +167,13 @@ public class DefaultDownloadReceiver extends BroadcastReceiver {
       mProgressDialog.setCancelable(mCanCancelDownload);
       mProgressDialog.setCanceledOnTouchOutside(false);
       if (mCanCancelDownload) {
-        mProgressDialog.setOnCancelListener(
-            new DialogInterface.OnCancelListener() {
-              @Override
-              public void onCancel(DialogInterface dialog) {
-                cancelDownload();
-              }
-            });
+        mProgressDialog.setOnCancelListener(dialog -> cancelDownload());
         mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE,
-            mContext.getString(R.string.cancel),
-            new DialogInterface.OnClickListener() {
-              @Override
-              public void onClick(DialogInterface dialog, int which) {
-                cancelDownload();
-              }
-            });
+            mContext.getString(com.quran.mobile.common.ui.core.R.string.cancel),
+            (dialog, which) -> cancelDownload());
       }
 
-      mProgressDialog.setTitle(R.string.downloading_title);
+      mProgressDialog.setTitle(com.quran.mobile.common.download.R.string.downloading);
       mProgressDialog.setMessage(mContext.getString(
           R.string.downloading_message));
     }
@@ -206,7 +195,7 @@ public class DefaultDownloadReceiver extends BroadcastReceiver {
         mProgressDialog.show();
       }
       if (progress == -1) {
-        int titleId = R.string.downloading_title;
+        int titleId = com.quran.mobile.common.download.R.string.downloading;
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage(mContext.getString(titleId));
         return;
@@ -226,14 +215,14 @@ public class DefaultDownloadReceiver extends BroadcastReceiver {
       String message;
       if (currentSura < 1) {
         message = String.format(
-            mContext.getString(R.string.download_progress),
+            mContext.getString(com.quran.mobile.feature.downloadmanager.R.string.download_progress),
             downloaded, total);
       } else if (currentAyah <= 0) {
         message = String.format(
-            mContext.getString(R.string.download_sura_progress),
+            mContext.getString(com.quran.mobile.feature.downloadmanager.R.string.download_sura_progress),
             downloaded, total, currentSura);
       } else {
-        message = String.format(mContext.getString(R.string.download_sura_ayah_progress),
+        message = String.format(mContext.getString(com.quran.mobile.feature.downloadmanager.R.string.download_sura_ayah_progress),
             currentSura, currentAyah);
       }
       mProgressDialog.setMessage(message);

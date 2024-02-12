@@ -12,6 +12,7 @@ import com.quran.mobile.bookmark.mapper.convergeCommonlyTagged
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@Deprecated("Use BookmarksDao instead")
 @Singleton
 class BookmarksDBAdapter @Inject constructor(bookmarksDatabase: BookmarksDatabase) {
   private val tagQueries = bookmarksDatabase.tagQueries
@@ -48,12 +49,6 @@ class BookmarksDBAdapter @Inject constructor(bookmarksDatabase: BookmarksDatabas
       .executeAsList()
   }
 
-  fun replaceRecentPages(pages: List<RecentPage>) {
-    lastPageQueries.transaction {
-      pages.forEach { addRecentPage(it.page) }
-    }
-  }
-
   fun replaceRecentRangeWithPage(deleteRangeStart: Int, deleteRangeEnd: Int, page: Int) {
     val maxPages = Constants.MAX_RECENT_PAGES.toLong()
     lastPageQueries.replaceRangeWithPage(deleteRangeStart, deleteRangeEnd, page, maxPages)
@@ -62,10 +57,6 @@ class BookmarksDBAdapter @Inject constructor(bookmarksDatabase: BookmarksDatabas
   fun addRecentPage(page: Int) {
     val maxPages = Constants.MAX_RECENT_PAGES.toLong()
     lastPageQueries.addLastPage(page, maxPages)
-  }
-
-  fun removeRecentPages() {
-    lastPageQueries.removeLastPages()
   }
 
   fun getBookmarkTagIds(bookmarkId: Long): List<Long> {
@@ -94,14 +85,6 @@ class BookmarksDBAdapter @Inject constructor(bookmarksDatabase: BookmarksDatabas
       }
 
       untag.forEach { bookmarkTagQueries.untag(it.first, it.second) }
-    }
-  }
-
-  fun updateBookmarks(bookmarks: List<Bookmark>) {
-    bookmarkQueries.transaction {
-      bookmarks.forEach {
-        bookmarkQueries.update(it.sura, it.ayah, it.page, it.id)
-      }
     }
   }
 

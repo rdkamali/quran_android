@@ -1,28 +1,21 @@
 plugins {
-  id 'com.android.library'
-  id 'org.jetbrains.kotlin.android'
-  id 'com.squareup.anvil'
+  id 'quran.android.library.android'
+  alias libs.plugins.anvil
 }
 
-android {
-  compileSdkVersion deps.android.build.compileSdkVersion
-  defaultConfig {
-    minSdkVersion deps.android.build.minSdkVersion
-    targetSdkVersion deps.android.build.targetSdkVersion
-  }
-}
+android.namespace 'com.quran.recitation.common'
 
 anvil { generateDaggerFactories = true }
 
 dependencies {
   implementation project(path: ':common:data')
 
-  implementation "androidx.annotation:annotation:${androidxAnnotationVersion}"
+  implementation libs.androidx.annotation
 
   // dagger
-  implementation deps.dagger.runtime
+  implementation libs.dagger.runtime
 
   // coroutines
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}"
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}"
+  implementation libs.kotlinx.coroutines.core
+  implementation libs.kotlinx.coroutines.android
 }

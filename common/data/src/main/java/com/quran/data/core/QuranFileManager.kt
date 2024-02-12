@@ -5,6 +5,7 @@ import androidx.annotation.WorkerThread
 interface QuranFileManager {
   fun quranImagesDirectory(): String?
   fun ayahInfoFileDirectory(): String?
+  fun audioFileDirectory(): String?
 
   fun recitationSessionsDirectory(): String
   fun recitationRecordingsDirectory(): String
@@ -14,6 +15,9 @@ interface QuranFileManager {
 
   @WorkerThread
   fun copyFromAssetsRelative(assetsPath: String, filename: String, destination: String)
+
+  @WorkerThread
+  fun copyFromAssetsRelativeRecursive(assetsPath: String, directory: String, destination: String)
 
   @WorkerThread
   fun removeOldArabicDatabase(): Boolean

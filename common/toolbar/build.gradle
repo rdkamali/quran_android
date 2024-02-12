@@ -1,14 +1,9 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.squareup.anvil'
-
-android {
-  compileSdkVersion deps.android.build.compileSdkVersion
-  defaultConfig {
-    minSdkVersion deps.android.build.minSdkVersion
-    targetSdkVersion deps.android.build.targetSdkVersion
-  }
+plugins {
+  id 'quran.android.library.android'
+  alias libs.plugins.anvil
 }
+
+android.namespace 'com.quran.labs.androidquran.common.toolbar'
 
 anvil { generateDaggerFactories = true }
 
@@ -17,9 +12,9 @@ dependencies {
   implementation project(path: ':common:reading')
   implementation project(path: ':common:bookmark')
 
-  implementation deps.dagger.runtime
+  implementation libs.dagger.runtime
 
-  implementation "androidx.appcompat:appcompat:${androidxAppcompatVersion}"
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}"
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}"
+  implementation libs.androidx.appcompat
+  implementation libs.kotlinx.coroutines.core
+  implementation libs.kotlinx.coroutines.android
 }

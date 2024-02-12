@@ -9,7 +9,6 @@
     </string>
   <string name="downloadPrompt_ok">Так</string>
   <string name="downloadPrompt_no">Ні</string>
-  <string name="downloading_title">Завантаження&#8230;</string>
   <string name="downloading_message">Зачекайте, поки файли завантажаться (підтримується резюме).</string>
   <string name="extracting_title">Обробки&#8230;</string>
   <string name="menu_about">Про нас</string>
@@ -31,7 +30,6 @@
   <string name="menu_get_translations">Отримати переклади</string>
   <string name="menu_jump">@string/gotoPage</string>
   <string name="gotoPage">Перейти на сторінку</string>
-  <string name="cancel">Скасувати</string>
   <string name="please_wait">Будь ласка, зачекай…</string>
 
   <!-- about -->
@@ -80,12 +78,6 @@
   <string name="quranSearchType">Вірші Корану</string>
   <string name="search_full_results">Повні результати</string>
   <string name="search_entire_mushaf">Пошук всієї каші</string>
-
-  <plurals name="files_downloaded">
-    <item quantity="one">%1$d Сура завантажено</item>
-    <item quantity="few">%1$d Сури завантажено</item>
-    <item quantity="many">%1$d Сури завантажено</item>
-  </plurals>
 
   <!-- Shown above search results when we receive a search request. -->
   <plurals name="search_results">
@@ -136,6 +128,8 @@
   <string name="prefs_translations_summary">Завантаження перекладів і керування ними</string>
   <string name="prefs_ayah_before_translation_title">Ая перед перекладом</string>
   <string name="prefs_ayah_before_translation_summary">Показати ая арабською мовою над перекладом</string>
+  <string name="prefs_use_dyslexic_font_title">Dyslexia friendly font</string>
+  <string name="prefs_use_dyslexic_font_summary">Display translations in dyslexia friendly font</string>
   <string name="prefs_category_download">Параметри завантаження</string>
   <string name="prefs_streaming_title">Потокове</string>
   <string name="prefs_streaming_summary">Потокове передавання звуку замість завантаження</string>
@@ -144,7 +138,6 @@
   <string name="prefs_audio_manager_summary">Керування та завантаження аудіо Quranic</string>
   <string name="downloaded_translations">Завантажити</string>
   <string name="available_translations">Доступно для завантаження</string>
-  <string name="remove_button">Видалити</string>
   <string name="dialog_ok">ГАРАЗД</string>
   <string name="prefs_app_location_title">Каталог даних Корану</string>
   <string name="prefs_app_location_summary">Виберіть розташування для зберігання файлів Корану</string>
@@ -158,7 +151,6 @@
   <string name="prefs_err_moving_app_files">Не вдалося перемістити файли програм</string>
   <string name="prefs_no_enough_space_to_move_files">Недостатньо місця для переміщення файлів програм</string>
   <string name="prefs_megabytes_int">%1$d MB</string>
-  <string name="prefs_megabytes_str">%s MB</string>
   <string name="prefs_dual_page_mode_title">Режим подвійної сторінки</string>
   <string name="prefs_dual_page_mode_enabled">У альбомі дві сторінки з\'являться поруч.</string>
   <string name="prefs_dual_page_mode_disabled">У альбомі з\'явиться лише одна сторінка.</string>
@@ -178,7 +170,7 @@
   <string name="import_data_permissions_error">Не вдалося прочитати файл резервної копії через помилку дозволів.</string>
   <string name="import_data_error">Неприпустимий файл резервної копії (або не вдалося прочитати файл резервної копії).</string>
   <string name="import_data">Імпорт даних</string>
-  <string name="import_data_and_override">Якщо ви імпортуєте цей файл, він замінить усі ваші закладки закладками % 1$d і тегами %2$d. Імпорт?</string>
+  <string name="import_data_and_override">Якщо ви імпортуєте цей файл, він замінить усі ваші закладки закладками %1$d і тегами %2$d. Імпорт?</string>
   <string name="import_successful">Імпорт успішний</string>
   <string name="export_data_error">Помилка експорту даних</string>
   <string name="exported_data">Дані експортуються до %1$s</string>
@@ -216,9 +208,6 @@
   <string name="sura_ayah_notification_str">Сура %1$s, Ая %2$d</string>
   <string name="sura_ayah_sharing_str">Сура %1$s: %2$d</string>
 
-  <string name="index_loading">Завантаження&#8230;</string>
-
-  <string name="canceling">Скасування&#8230;</string>
   <string name="juz2_description">Частина %1$s</string>
   <string name="page_description">Сторінка %1$s, Частина %2$s</string>
   <string name="highlighting_database">Обов\'язкові файли</string>
@@ -236,12 +225,7 @@
   <string name="download_error_invalid_download_retry">Пошкоджений файл, спроба повторного завантаження</string>
   <string name="download_error_network_retry">Мережева помилка, спроба відновити&#8230;</string>
   <string name="notification_download_canceled">Завантажити скасовано</string>
-  <string name="download_non_wifi_prompt">Ви не користуєтеся Wi-Fi. Завантажити дані в будь-якому випадку?</string>
-
   <!-- downloading dialogs -->
-  <string name="download_progress">Завантажити %1$s / %2$s</string>
-  <string name="download_sura_progress">Завантажити %1$s / %2$s від Сура %3$d</string>
-  <string name="download_sura_ayah_progress" tools:ignore="PluralsCandidate">Завантаження Сура %1$d ая %2$d</string>
   <string name="process_progress">Обробка файлу %1$d / %2$d</string>
   <string name="download_retry">Повторити</string>
   <string name="download_cancel">Скасувати</string>
@@ -269,8 +253,6 @@
   </plurals>
 
   <!-- ayah action panel -->
-  <string name="play_from">Від</string>
-  <string name="play_to">До</string>
   <string name="play_restrict_range">Відтворюйте лише наведені вище вірші</string>
   <string name="play_verses_range">Послухай набір аятів:</string>
   <string name="play_each_verse">Прислухайтеся до кожного ая:</string>
@@ -280,6 +262,7 @@
   <string name="play">Слухати</string>
   <string name="pause">Пауза</string>
   <string name="stop">Зупинити</string>
+  <string name="playback_speed">Llais yn ôl:</string>
   <string name="next">Наступний</string>
 
   <string-array name="repeatValues">
@@ -318,26 +301,6 @@
 
   <!-- widgets -->
   <string name="bookmarks_list_empty">Без закладок</string>
-
-  <!-- audio manager -->
-  <string name="audio_manager">Аудіоменеджер</string>
-  <string name="audio_manager_remove_audio_title">Видалити Сура?</string>
-  <string name="audio_manager_remove_audio_msg">Ви дійсно бажаєте видалити %1$s?</string>
-  <plurals name="audio_manager_delete_surah_success">
-    <item quantity="one">Успішно видалено %1$d Сура</item>
-    <item quantity="few">Успішно видалено %1$d Сури</item>
-    <item quantity="many">Успішно видалено %1$d Сури</item>
-  </plurals>
-  <plurals name="audio_manager_delete_surah_error">
-    <item quantity="one">Під час видалення сталася помилка %1$d Сура</item>
-    <item quantity="few">Під час видалення сталася помилка %1$d Сури</item>
-    <item quantity="many">Під час видалення сталася помилка %1$d Сури</item>
-  </plurals>
-  <string name="audio_manager_surah_download">Завантажити Сура</string>
-  <string name="audio_manager_surah_delete">Видалення аудіофайлу</string>
-  <string name="audio_manager_download_all">Завантажити всі</string>
-  <string name="audio_manager_download_selection">Завантажити вибір</string>
-  <string name="audio_manager_delete_selection">Видалити виділений фрагмент</string>
 
   <!-- audio updates -->
   <string name="audio_updated_title">Оновлення аудіофайлів Корану</string>

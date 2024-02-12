@@ -1,3 +1,5 @@
+import kotlin.Int;
+
 CREATE TABLE IF NOT EXISTS bookmarks(
   _ID INTEGER PRIMARY KEY AUTOINCREMENT,
   sura INTEGER AS Int,
@@ -58,6 +60,10 @@ getBookmarkIdForPage:
     WHERE bookmarks.page = ?
     AND bookmarks.sura IS NULL
     AND bookmarks.ayah IS NULL;
+
+getPageBookmarksWithoutTags:
+  SELECT bookmarks._ID, bookmarks.page, bookmarks.added_date FROM bookmarks
+  WHERE sura IS NULL AND ayah IS NULL;
 
 getBookmarkIdForSuraAyah:
   SELECT bookmarks._ID FROM bookmarks

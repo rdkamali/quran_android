@@ -1,6 +1,7 @@
 package com.quran.data.source
 
 import androidx.annotation.StringRes
+import com.quran.data.model.audio.Qari
 
 interface PageProvider {
   fun getDataSource(): QuranDataSource
@@ -25,6 +26,9 @@ interface PageProvider {
   @StringRes fun getPreviewTitle(): Int
   @StringRes fun getPreviewDescription(): Int
 
-  fun getPageContentType(): PageContentType = PageContentType.IMAGE
+  fun getPageContentType(): PageContentType = PageContentType.Image
   fun getFallbackPageType(): String? = null
+  fun getQaris(): List<Qari>
+  fun getDefaultQariId(): Int
+  fun pageType(): String = ""
 }

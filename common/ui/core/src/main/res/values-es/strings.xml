@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="remove_button">Eliminar</string>
+  <string name="cancel">Cancelar</string>
+  <string name="from">Desde</string>
+  <string name="to">Para</string>
+  <string name="loading">Cargando…</string>
+  <string name="canceling">Cancelando…</string>
+</resources>

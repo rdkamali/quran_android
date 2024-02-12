@@ -5,7 +5,6 @@
   <string name="downloadPrompt">برای عملکرد بهینه بایستی تعدادی فایل از اینترنت دریافت گردد. این کار قدری طول خواهد کشید. آیا آمادگی این کار را دارید؟</string>
   <string name="downloadPrompt_ok">بلی</string>
   <string name="downloadPrompt_no">خیر</string>
-  <string name="downloading_title">بارگذاری…</string>
   <string name="downloading_message">لطفاً برای بارگذاری فایل‌ها صبر نمایید. (از ازسرگیری پشتیبانی می‌شود.(</string>
   <string name="extracting_title">در حال پردازش…</string>
   <string name="menu_about">درباره ما</string>
@@ -25,7 +24,6 @@
   <string name="menu_get_translations">دریافت ترجمه‌ها</string>
   <string name="menu_jump">پرش</string>
   <string name="gotoPage">رفتن به صفحه</string>
-  <string name="cancel">لغو</string>
 
   <!-- help -->
   <string name="help_title">پرسش و پاسخ‌های متداول</string>
@@ -92,13 +90,14 @@
   <string name="prefs_translations_summary">بارگذاری و مدیریت ترجمه‌ها</string>
   <string name="prefs_ayah_before_translation_title">آیه پیش از ترجمه</string>
   <string name="prefs_ayah_before_translation_summary">نمایش متن عربی آیه پیش از ترجمه</string>
+  <string name="prefs_use_dyslexic_font_title">Dyslexia friendly font</string>
+  <string name="prefs_use_dyslexic_font_summary">Display translations in dyslexia friendly font</string>
   <string name="prefs_category_download">بارگذاری تنظیمات</string>
   <string name="prefs_streaming_title">پخش اینترنتی</string>
   <string name="prefs_streaming_summary">پخش جویباری صوت از اینترنت</string>
   <string name="prefs_download_amount_summary">میزان پیشنهادی برای بارگذاری فایل‌های صوتی</string>
   <string name="downloaded_translations">بارگذاری انجام گرفت</string>
   <string name="available_translations">آماده بارگذاری</string>
-  <string name="remove_button">حذف</string>
   <string name="dialog_ok">تأیید</string>
 
   <!-- translation updates -->
@@ -120,9 +119,6 @@
   <string name="sura_ayah_notification_str">سوره %1$s، آیه %2$d</string>
   <string name="sura_ayah_sharing_str">سوره %1$s: %2$d</string>
 
-  <string name="index_loading">بارگذاری…</string>
-
-  <string name="canceling">در حال لغو</string>
   <string name="page_description">صفحه %1$s، جزء %2$s</string>
   <string name="highlighting_database">فایل‌های موردنیاز</string>
   <string name="timing_database">فایل‌های موردنیاز</string>
@@ -138,10 +134,7 @@
   <string name="download_error_invalid_download_retry">فایل خراب است. دوباره بارگذاری نمایید</string>
   <string name="download_error_network_retry">خطای شبکه، تلاش مجدد…</string>
   <string name="notification_download_canceled">بارگذاری لغو شد</string>
-  <string name="download_non_wifi_prompt">شبکه بی‌سیم قطع است. بارگذاری انجام شود؟</string>
-
   <!-- downloading dialogs -->
-  <string name="download_progress">بارگذاری %1$s / %2$s</string>
   <string name="process_progress">در حال پردازش %1$d / %2$d</string>
   <string name="download_retry">تلاش دوباره</string>
   <string name="download_cancel">لغو</string>
@@ -194,10 +187,8 @@
   <string name="about_contributors">همکاران</string>
   <string name="about_contributors_summary">فهرستی از افرادی که به توسعه این برنامه یاری رسانده‌اند.</string>
 
-  <string name="audio_manager">مدیریت فایل‌های صوتی</string>
   <string name="downloadImportantPrompt">یک به‌روزرسانی کوچک اما مهم برای تصاویر قرآن وجود دارد. آیا مایل‌اید این وصله را بارگذاری نمایید؟</string>
   <string name="download_extra_data">برای عملکرد مناسب امکانات اشتراک‌گذاری و ترجمه باید یکی دو فایل را بارگذاری نمایید. موافق‌اید؟</string>
-  <string name="download_sura_progress">بارگذاری %1$s / %2$s از سوره %3$d</string>
   <string name="export_data_error">خطا در برون‌بُرد داده‌ها</string>
   <string name="exported_data">بُرون‌برد به %1$s انجام گرفت.</string>
   <string name="get_translations">دریافت ترجمه‌ها</string>
@@ -216,13 +207,12 @@
   <string name="play_apply">اِعمال</string>
   <string name="play_apply_and_play">اِعمال و پخش</string>
   <string name="play_each_verse">پخش هر آیه:</string>
-  <string name="play_from">از</string>
   <string name="play_restrict_range">تنها این آیات را پخش کن</string>
-  <string name="play_to">تا</string>
   <string name="play_verses_range">پخش مجموعه آیات:</string>
   <string name="previous">قبلی</string>
   <string name="pause">مکث</string>
   <string name="stop">توقف</string>
+  <string name="playback_speed">سرعت پخش:</string>
   <string name="next">بعدی</string>
 
   <string name="prefs_app_location_summary">حافظه‌ای که تمایل دارید فایل‌ها روی آن ذخیره شود را انتخاب نمایید</string>
@@ -256,7 +246,6 @@
   <string name="sdcard_error">کارت حافظه یافت نشد. آن را دوباره در دستگاه قرار داده و بار دیگر امتحان نمایید.</string>
   <string name="undo">واگرد</string>
   <string name="warning">هشدار</string>
-  <string name="download_sura_ayah_progress">بارگذاری سوره %1$d آیه %2$d</string>
 
   <!-- m permissions stuff -->
   <string name="storage_permission_rationale">برنامه قرآن برای ذخیره داده‌ها در حافظه خارجی
@@ -264,11 +253,6 @@
     را پاک نمایید، تمام صفحات، فایل‌های صوتی و دیگر داده‌های بارگذاری‌شده از بین خواهد رفت.
     آیا اجازه ذخیره داده‌ها در حافظه خارجی را صادر می‌کنید؟</string>
   <string name="storage_permission_please_restart">برنامه را از نو آغاز کنید تا تغییرات اثر کند.</string>
-
-  <plurals name="files_downloaded">
-    <item quantity="one">%1$d سوره بارگذاری شده است</item>
-    <item quantity="other">%1$d سوره بارگذاری شده است</item>
-  </plurals>
 
   <plurals name="bookmark_tag_deleted">
     <item quantity="one">%d برچسب حذف شد</item>
@@ -309,13 +293,6 @@
   <string name="starting_page_label">آغاز صفحه</string>
   <string name="tag_blank_tag_error">نام برچسب نمی تواند خالی باشد!</string>
   <string name="tag_duplicate_tag_error">نام برچسب در حال حاضر وجود دارد!</string>
-  <string name="audio_manager_remove_audio_title">حذف فایل صوتی؟</string>
-  <string name="audio_manager_remove_audio_msg">آیا مطمئن هستید که می خواهید %1$s را حذف کنید؟</string>
-  <string name="audio_manager_surah_download">دانلود سوره</string>
-  <string name="audio_manager_surah_delete">حذف سوره</string>
-  <string name="audio_manager_download_all">دانلود همه</string>
-  <string name="audio_manager_download_selection">دانلود انتخاب</string>
-  <string name="audio_manager_delete_selection">حذف انتخاب</string>
   <string name="audio_updated_title">به روز رسانی فایل های صوتی قرآن</string>
   <string name="audio_updated_text">چندین فایل صوتی قرآن به روز شده است. قرآن برای اندروید کپی شما از این فایل ها را حذف کرده است به طوری که جدیدترین نسخه ها را می توانید دانلود کنید دفعه بعد که آنها را پخش می کنید.</string>
   <string name="prefs_category_dual_screen">ترجیحات برای دو صفحه مجاور</string>

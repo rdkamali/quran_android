@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -46,11 +47,10 @@ import com.quran.labs.androidquran.util.QuranSettings
 import com.quran.labs.androidquran.util.QuranUtils
 import com.quran.labs.androidquran.view.SlidingTabLayout
 import com.quran.mobile.di.ExtraScreenProvider
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import timber.log.Timber
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import javax.inject.Inject
 import kotlin.math.abs
@@ -100,9 +100,11 @@ class QuranActivity : AppCompatActivity(),
 
     super.onCreate(savedInstanceState)
     quranApp.applicationComponent
-        .quranActivityComponentBuilder()
-        .build()
-        .inject(this)
+      .activityComponentFactory()
+      .generate(this)
+      .quranActivityComponentFactory()
+      .generate()
+      .inject(this)
 
     setContentView(R.layout.quran_index)
     isRtl = isRtl()
@@ -160,9 +162,14 @@ class QuranActivity : AppCompatActivity(),
           Completable.timer(500, MILLISECONDS)
               .observeOn(AndroidSchedulers.mainThread())
               .subscribe {
-                startService(
+                try {
+                  startService(
                     audioUtils.getAudioIntent(this@QuranActivity, AudioService.ACTION_STOP)
-                )
+                  )
+                } catch (illegalStateException: IllegalStateException) {
+                  // do nothing, we might be in the background
+                  // onPause should have stopped us from needing this, but it sometimes happens
+                }
               }
       )
     }
@@ -253,7 +260,17 @@ class QuranActivity : AppCompatActivity(),
     } else if (searchItem != null && searchItem.isActionViewExpanded) {
       searchItem.collapseActionView()
     } else {
-      super.onBackPressed()
+      // work around a memory leak in Android Q
+      // https://issuetracker.google.com/issues/139738913
+      if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q &&
+        isTaskRoot &&
+        (supportFragmentManager.primaryNavigationFragment?.childFragmentManager?.backStackEntryCount ?: 0) == 0 &&
+        supportFragmentManager.backStackEntryCount == 0
+      ) {
+        finishAfterTransition()
+      } else {
+        super.onBackPressed()
+      }
     }
   }
 
@@ -279,13 +296,8 @@ class QuranActivity : AppCompatActivity(),
 
   private fun updateTranslationsListAsNeeded() {
     if (!updatedTranslations) {
-      val time = settings.lastUpdatedTranslationDate
-      Timber.d("checking whether we should update translations..")
-      if (System.currentTimeMillis() - time > Constants.TRANSLATION_REFRESH_TIME) {
-        Timber.d("updating translations list...")
-        updatedTranslations = true
-        translationManagerPresenter.checkForUpdates()
-      }
+      translationManagerPresenter.checkForUpdates()
+      updatedTranslations = true
     }
   }
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="remove_button">Buang</string>
+  <string name="cancel">Batal</string>
+  <string name="from">Dari</string>
+  <string name="to">Sampai</string>
+  <string name="loading">Memuat&#8230;</string>
+  <string name="canceling">Membatalkan&#8230;</string>
+</resources>

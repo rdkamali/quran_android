@@ -5,7 +5,7 @@ import com.quran.data.core.QuranConstants
 object Constants {
 
   // data domain
-  const val HOST = "https://android.quran.com/"
+  const val HOST = "https://quran.app/"
 
   // Numerics
   const val DEFAULT_NIGHT_MODE_TEXT_BRIGHTNESS = 255
@@ -65,6 +65,7 @@ object Constants {
   const val PREF_DISPLAY_MARKER_POPUP = "displayMarkerPopup"
   const val PREF_HIGHLIGHT_BOOKMARKS = "highlightBookmarks"
   const val PREF_AYAH_BEFORE_TRANSLATION = "ayahBeforeTranslation"
+  const val PREF_USE_DYSLEXIC_FONT = "useDyslexicFont"
   const val PREF_SPLIT_PAGE_AND_TRANSLATION = "splitPageAndTranslation"
   const val PREF_PREFER_STREAMING = "preferStreaming"
   const val PREF_DOWNLOAD_AMOUNT = "preferredDownloadAmount"
@@ -97,4 +98,6 @@ object Constants {
   const val PREF_CHECKED_PARTIAL_IMAGES = "didCheckPartialImages"
   const val PREF_CURRENT_AUDIO_REVISION = "currentAudioRevision"
   const val PREF_SURA_TRANSLATED_NAME = "suraTranslatedName"
+  const val PREF_SHOW_SIDELINES = "showSidelines"
+  const val PREF_SHOW_LINE_DIVIDERS = "showLineDividers"
 }

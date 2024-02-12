@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="remove_button">Remove</string>
+  <string name="cancel">Cancel</string>
+  <string name="from">From</string>
+  <string name="to">To</string>
+  <string name="loading">Loading&#8230;</string>
+  <string name="infinity" translatable="false">&#8734;</string>
+  <string name="canceling">Canceling&#8230;</string>
+</resources>

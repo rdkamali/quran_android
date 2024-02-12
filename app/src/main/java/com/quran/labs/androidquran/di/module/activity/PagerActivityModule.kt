@@ -1,43 +1,39 @@
 package com.quran.labs.androidquran.di.module.activity
 
 import android.content.Context
-import androidx.core.content.ContextCompat
 import com.quran.data.core.QuranInfo
 import com.quran.data.core.QuranPageInfo
-import com.quran.labs.androidquran.R
+import com.quran.data.di.ActivityLevelScope
 import com.quran.data.di.ActivityScope
 import com.quran.labs.androidquran.data.QuranDisplayData
-import com.quran.labs.androidquran.ui.PagerActivity
-import com.quran.labs.androidquran.ui.helpers.AyahSelectedListener
 import com.quran.labs.androidquran.util.QuranPageInfoImpl
 import com.quran.labs.androidquran.util.QuranScreenInfo
 import com.quran.labs.androidquran.util.QuranUtils
 import com.quran.labs.androidquran.util.TranslationUtil
 import com.quran.mobile.di.AyahActionFragmentProvider
+import com.quran.mobile.di.qualifier.ActivityContext
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.ElementsIntoSet
 
+@ContributesTo(ActivityLevelScope::class)
 @Module
-class PagerActivityModule(private val pagerActivity: PagerActivity) {
-
-  @Provides
-  fun provideAyahSelectedListener(): AyahSelectedListener {
-    return pagerActivity
-  }
+object PagerActivityModule {
 
   @Provides
   fun provideQuranPageInfo(
+    @ActivityContext context: Context,
     quranInfo: QuranInfo,
     quranDisplayData: QuranDisplayData
   ): QuranPageInfo {
-    return QuranPageInfoImpl(pagerActivity, quranInfo, quranDisplayData)
+    return QuranPageInfoImpl(context, quranInfo, quranDisplayData)
   }
 
   @Provides
   @ActivityScope
-  fun provideImageWidth(screenInfo: QuranScreenInfo): String {
-    return if (QuranUtils.isDualPages(pagerActivity, screenInfo)) {
+  fun provideImageWidth(@ActivityContext context: Context, screenInfo: QuranScreenInfo): String {
+    return if (QuranUtils.isDualPages(context, screenInfo)) {
       screenInfo.tabletWidthParam
     } else {
       screenInfo.widthParam
@@ -46,11 +42,8 @@ class PagerActivityModule(private val pagerActivity: PagerActivity) {
 
   @Provides
   @ActivityScope
-  fun provideTranslationUtil(context: Context, quranInfo: QuranInfo): TranslationUtil {
-    return TranslationUtil(
-      ContextCompat.getColor(context, R.color.translation_translator_color),
-      quranInfo
-    )
+  fun provideTranslationUtil(quranInfo: QuranInfo): TranslationUtil {
+    return TranslationUtil(quranInfo)
   }
 
   @Provides

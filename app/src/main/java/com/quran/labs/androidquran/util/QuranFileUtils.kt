@@ -14,6 +14,7 @@ import com.quran.labs.androidquran.BuildConfig
 import com.quran.labs.androidquran.common.Response
 import com.quran.labs.androidquran.data.QuranDataProvider
 import com.quran.labs.androidquran.extension.closeQuietly
+import com.quran.mobile.di.qualifier.ApplicationContext
 import okhttp3.OkHttpClient
 import okhttp3.Request.Builder
 import okhttp3.ResponseBody
@@ -30,16 +31,14 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.InterruptedIOException
 import java.text.NumberFormat
-import java.util.ArrayList
 import java.util.Collections
 import java.util.Locale
 import javax.inject.Inject
 
 class QuranFileUtils @Inject constructor(
-  context: Context,
+  @ApplicationContext context: Context,
   pageProvider: PageProvider,
-  private val quranScreenInfo: QuranScreenInfo,
-  private val urlUtil: UrlUtil
+  private val quranScreenInfo: QuranScreenInfo
 ): QuranFileManager {
   // server urls
   private val imageBaseUrl: String = pageProvider.getImagesBaseUrl()
@@ -252,6 +251,30 @@ class QuranFileUtils @Inject constructor(
     copyFromAssets(assetsPath, filename, actualDestination)
   }
 
+  override fun copyFromAssetsRelativeRecursive(
+    assetsPath: String,
+    directory: String,
+    destination: String
+  ) {
+    val destinationPath = File(getQuranBaseDirectory(appContext) + destination)
+    val directoryDestinationPath = File(destinationPath, directory)
+    if (!directoryDestinationPath.exists()) {
+      directoryDestinationPath.mkdirs()
+    }
+
+    val assets = appContext.assets
+    val files = assets.list(assetsPath) ?: emptyArray()
+    val destinationDirectory = "$destination${File.separator}$directory"
+    files.forEach {
+      val path = "$assetsPath${File.separator}$it"
+      if (assets.list(path)?.isNotEmpty() == true) {
+        copyFromAssetsRelativeRecursive(path, it, destinationDirectory)
+      } else {
+        copyFromAssetsRelative(path, it, destinationDirectory)
+      }
+    }
+  }
+
   @WorkerThread
   override fun removeOldArabicDatabase(): Boolean {
     val databaseQuranArabicDatabase = File(
@@ -299,7 +322,7 @@ class QuranFileUtils @Inject constructor(
     filename: String,
     isRetry: Boolean
   ): Response {
-    val base = if (isRetry) urlUtil.fallbackUrl(imageBaseUrl) else imageBaseUrl
+    val base = imageBaseUrl
     val urlString = (base + "width" + widthParam + File.separator + filename)
     Timber.d("want to download: %s", urlString)
     val request = Builder()
@@ -433,6 +456,8 @@ class QuranFileUtils @Inject constructor(
     val base = getQuranBaseDirectory(context)
     return if (base == null) null else base + ayahInfoDirectory
   }
+
+  override fun audioFileDirectory(): String? = getQuranAudioDirectory(appContext)
 
   fun getQuranAudioDirectory(context: Context): String? {
     var path = getQuranBaseDirectory(context) ?: return null
